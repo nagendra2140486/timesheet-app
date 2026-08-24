@@ -1,5 +1,3 @@
-process.env.BASE_URL = payload.frontend_url;
-process.env.API_URL = payload.backend_url;
 const fs = require('fs');
 const { execSync } = require('child_process');
 
@@ -9,18 +7,23 @@ const payload = JSON.parse(
 
 console.log(`Running impacted suite for ${payload.appname}`);
 
+process.env.TIMESHEET_BASE_URL =
+  payload.frontend_url ||
+  process.env.TIMESHEET_BASE_URL;
+
+process.env.TIMESHEET_API_URL =
+  payload.backend_url ||
+  process.env.TIMESHEET_API_URL;
+
+console.log(`Frontend URL: ${process.env.TIMESHEET_BASE_URL}`);
+console.log(`Backend URL: ${process.env.TIMESHEET_API_URL}`);
+
 const testCases = payload.test_cases || [];
 
 if (!testCases.length) {
   throw new Error('No test_cases found in payload');
 }
 
-/*
- * Playwright rootDir is already e2e
- * Convert:
- * tests/e2e/auth.spec.ts
- * -> auth.spec.ts
- */
 const specs = [
   ...new Set(
     testCases.map(tc =>
@@ -34,9 +37,6 @@ const specs = [
 console.log('Specs selected from payload:');
 console.log(specs);
 
-/*
- * Execute impacted specs only
- */
 const command =
   `npx playwright test ${specs.join(' ')} --reporter=json > results.json`;
 
@@ -47,7 +47,8 @@ try {
 
   execSync(command, {
     stdio: 'inherit',
-    shell: true
+    shell: true,
+    env: process.env
   });
 
 } catch (err) {
@@ -57,9 +58,6 @@ try {
 
 }
 
-/*
- * Read results
- */
 let results = {};
 
 try {
