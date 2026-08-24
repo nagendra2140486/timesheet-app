@@ -1,4 +1,5 @@
-
+process.env.BASE_URL = payload.frontend_url;
+process.env.API_URL = payload.backend_url;
 const fs = require('fs');
 const { execSync } = require('child_process');
 
