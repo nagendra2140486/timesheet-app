@@ -27,66 +27,40 @@ steps:
   workingDirectory: tests
   displayName: 'Install Playwright Browsers'
 
-#
-# Save incoming Impact Gap Analyzer payload
-#
-
 - script: |
     printf '%s' "$PAYLOAD" > payload.json
 
     echo "Payload saved"
 
-    echo "Payload size:"
     wc -c payload.json
 
   workingDirectory: tests
   displayName: 'Save Incoming Payload'
-
   env:
     PAYLOAD: ${{ parameters.payload }}
 
-#
-# Debug payload
-#
-
 - script: |
     echo "Payload received"
-
     cat payload.json
-
   workingDirectory: tests
   displayName: 'View Payload'
-
-#
-# Dynamic execution
-#
 
 - script: |
     node execute-impacted-tests.js
   workingDirectory: tests
   displayName: 'Execute Impacted Tests'
 
-#
-# Verify generated files
-#
-
 - script: |
-    echo "Generated files"
-
+    echo "Generated files:"
     ls -la
 
     echo ""
-    echo "Regression Report"
-
+    echo "Regression Report:"
     cat regression-report.json
 
   workingDirectory: tests
   displayName: 'Verify Generated Report'
   condition: always()
-
-#
-# Publish report to Claude API
-#
 
 - script: |
     echo "Publishing regression report..."
@@ -113,10 +87,6 @@ steps:
   workingDirectory: tests
   displayName: 'Publish Regression Report'
   condition: always()
-
-#
-# Publish artifacts
-#
 
 - task: PublishPipelineArtifact@1
   displayName: 'Publish Regression Report'
