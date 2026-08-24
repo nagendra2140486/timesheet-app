@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "playwrightVersion": "1.62.1",
+  "projects": [
+    "chromium"
+  ],
+  "totalTests": 35,
+  "specs": [
+    {
+      "file": "auth.spec.ts",
+      "tests": [
+        {
+          "title": "a new user can log in and lands on the dashboard",
+          "describe": "authentication",
+          "line": 10,
+          "tags": []
+        },
+        {
+          "title": "the session survives a reload",
+          "describe": "authentication",
+          "line": 23,
+          "tags": []
+        },
+        {
+          "title": "an anonymous visitor to a protected route is sent to login",
+          "describe": "authentication",
+          "line": 35,
+          "tags": []
+        },
+        {
+          "title": "logging out clears the session and protects the route again",
+          "describe": "authentication",
+          "line": 44,
+          "tags": []
+        },
+        {
+          "title": "the login form reports a rejected email instead of failing silently",
+          "describe": "authentication",
+          "line": 56,
+          "tags": []
+        },
+        {
+          "title": "GET /api/clients rejects a caller with no identity",
+          "describe": "api access control",
+          "line": 74,
+          "tags": []
+        },
+        {
+          "title": "GET /api/work-entries rejects a caller with no identity",
+          "describe": "api access control",
+          "line": 74,
+          "tags": []
+        },
+        {
+          "title": "GET /api/auth/me rejects a caller with no identity",
+          "describe": "api access control",
+          "line": 74,
+          "tags": []
+        },
+        {
+          "title": "a malformed identity header is rejected, not trusted",
+          "describe": "api access control",
+          "line": 82,
+          "tags": []
+        },
+        {
+          "title": "login validates the email before touching the database",
+          "describe": "api access control",
+          "line": 89,
+          "tags": []
+        },
+        {
+          "title": "one user cannot read another user's clients",
+          "describe": "api access control",
+          "line": 96,
+          "tags": []
+        }
+      ]
+    },
+    {
+      "file": "clients.spec.ts",
+      "tests": [
+        {
+          "title": "a client created in the dialog appears in the list",
+          "describe": "client management",
+          "line": 5,
+          "tags": []
+        },
+        {
+          "title": "a client survives a reload, so it was persisted and not just rendered",
+          "describe": "client management",
+          "line": 28,
+          "tags": []
+        },
+        {
+          "title": "editing a client updates the row",
+          "describe": "client management",
+          "line": 44,
+          "tags": []
+        },
+        {
+          "title": "deleting a client removes it after the confirmation",
+          "describe": "client management",
+          "line": 67,
+          "tags": []
+        },
+        {
+          "title": "dismissing the delete confirmation keeps the client",
+          "describe": "client management",
+          "line": 87,
+          "tags": []
+        },
+        {
+          "title": "clearing every client requires the intent to be stated",
+          "describe": "client management",
+          "line": 99,
+          "tags": []
+        },
+        {
+          "title": "the API rejects a client with no name",
+          "describe": "client management",
+          "line": 115,
+          "tags": []
+        },
+        {
+          "title": "the API rejects a malformed client email",
+          "describe": "client management",
+          "line": 124,
+          "tags": []
+        }
+      ]
+    },
+    {
+      "file": "reports.spec.ts",
+      "tests": [
+        {
+          "title": "the dashboard totals reflect the entries just logged",
+          "describe": "reporting",
+          "line": 5,
+          "tags": []
+        },
+        {
+          "title": "a client's report totals its hours and lists its entries",
+          "describe": "reporting",
+          "line": 21,
+          "tags": []
+        },
+        {
+          "title": "the report shows only the selected client, not every client",
+          "describe": "reporting",
+          "line": 39,
+          "tags": []
+        },
+        {
+          "title": "a client with no entries reports an empty state, not an error",
+          "describe": "reporting",
+          "line": 56,
+          "tags": []
+        },
+        {
+          "title": "a user with no clients is prompted to create one",
+          "describe": "reporting",
+          "line": 69,
+          "tags": []
+        },
+        {
+          "title": "the CSV export downloads the entries as a file",
+          "describe": "reporting",
+          "line": 79,
+          "tags": []
+        },
+        {
+          "title": "the report API refuses a client the caller does not own",
+          "describe": "reporting",
+          "line": 98,
+          "tags": []
+        },
+        {
+          "title": "the report API rejects a non-numeric client id",
+          "describe": "reporting",
+          "line": 109,
+          "tags": []
+        }
+      ]
+    },
+    {
+      "file": "work-entries.spec.ts",
+      "tests": [
+        {
+          "title": "an entry logged against a client appears with its hours",
+          "describe": "work entry logging",
+          "line": 5,
+          "tags": []
+        },
+        {
+          "title": "editing an entry updates its hours",
+          "describe": "work entry logging",
+          "line": 32,
+          "tags": []
+        },
+        {
+          "title": "deleting an entry removes it from the list and the API",
+          "describe": "work entry logging",
+          "line": 53,
+          "tags": []
+        },
+        {
+          "title": "entries for several clients are listed together",
+          "describe": "work entry logging",
+          "line": 71,
+          "tags": []
+        },
+        {
+          "title": "the API rejects more hours than exist in a day",
+          "describe": "work entry logging",
+          "line": 86,
+          "tags": []
+        },
+        {
+          "title": "the API rejects zero or negative hours",
+          "describe": "work entry logging",
+          "line": 99,
+          "tags": []
+        },
+        {
+          "title": "the API rejects a malformed date",
+          "describe": "work entry logging",
+          "line": 112,
+          "tags": []
+        },
+        {
+          "title": "an entry cannot be logged against another user's client",
+          "describe": "work entry logging",
+          "line": 124,
+          "tags": []
+        }
+      ]
+    }
+  ]
+}

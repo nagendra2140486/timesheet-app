@@ -1,0 +1,1077 @@
+{
+  "schemaVersion": 1,
+  "complete": true,
+  "totalTests": 35,
+  "backendOwners": {
+    "/api/auth": "backend/src/routes/auth.js",
+    "/api/clients": "backend/src/routes/clients.js",
+    "/api/work-entries": "backend/src/routes/workEntries.js",
+    "/api/reports": "backend/src/routes/reports.js"
+  },
+  "tests": [
+    {
+      "file": "auth.spec.ts",
+      "title": "api access control > a malformed identity header is rejected, not trusted",
+      "status": "passed",
+      "routes": [],
+      "endpoints": [
+        "GET /api/clients"
+      ],
+      "sourceFiles": []
+    },
+    {
+      "file": "auth.spec.ts",
+      "title": "api access control > GET /api/auth/me rejects a caller with no identity",
+      "status": "passed",
+      "routes": [],
+      "endpoints": [
+        "GET /api/auth/me"
+      ],
+      "sourceFiles": []
+    },
+    {
+      "file": "auth.spec.ts",
+      "title": "api access control > GET /api/clients rejects a caller with no identity",
+      "status": "passed",
+      "routes": [],
+      "endpoints": [
+        "GET /api/clients"
+      ],
+      "sourceFiles": []
+    },
+    {
+      "file": "auth.spec.ts",
+      "title": "api access control > GET /api/work-entries rejects a caller with no identity",
+      "status": "passed",
+      "routes": [],
+      "endpoints": [
+        "GET /api/work-entries"
+      ],
+      "sourceFiles": []
+    },
+    {
+      "file": "auth.spec.ts",
+      "title": "api access control > login validates the email before touching the database",
+      "status": "passed",
+      "routes": [],
+      "endpoints": [
+        "POST /api/auth/login"
+      ],
+      "sourceFiles": []
+    },
+    {
+      "file": "auth.spec.ts",
+      "title": "api access control > one user cannot read another user's clients",
+      "status": "passed",
+      "routes": [],
+      "endpoints": [
+        "GET /api/clients",
+        "GET /api/clients/{id}",
+        "POST /api/clients"
+      ],
+      "sourceFiles": []
+    },
+    {
+      "file": "auth.spec.ts",
+      "title": "authentication > a new user can log in and lands on the dashboard",
+      "status": "passed",
+      "routes": [
+        "/login"
+      ],
+      "endpoints": [
+        "GET /api/clients",
+        "GET /api/work-entries",
+        "POST /api/auth/login"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "auth.spec.ts",
+      "title": "authentication > an anonymous visitor to a protected route is sent to login",
+      "status": "passed",
+      "routes": [
+        "/clients"
+      ],
+      "endpoints": [],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "auth.spec.ts",
+      "title": "authentication > logging out clears the session and protects the route again",
+      "status": "passed",
+      "routes": [
+        "/dashboard"
+      ],
+      "endpoints": [
+        "GET /api/auth/me",
+        "GET /api/clients",
+        "GET /api/work-entries"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "auth.spec.ts",
+      "title": "authentication > the login form reports a rejected email instead of failing silently",
+      "status": "passed",
+      "routes": [
+        "/login"
+      ],
+      "endpoints": [
+        "POST /api/auth/login"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "auth.spec.ts",
+      "title": "authentication > the session survives a reload",
+      "status": "passed",
+      "routes": [
+        "/dashboard"
+      ],
+      "endpoints": [
+        "GET /api/auth/me",
+        "GET /api/clients",
+        "GET /api/work-entries"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "clients.spec.ts",
+      "title": "client management > a client created in the dialog appears in the list",
+      "status": "passed",
+      "routes": [
+        "/clients"
+      ],
+      "endpoints": [
+        "GET /api/auth/me",
+        "GET /api/clients",
+        "POST /api/clients"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "clients.spec.ts",
+      "title": "client management > a client survives a reload, so it was persisted and not just rendered",
+      "status": "passed",
+      "routes": [
+        "/clients"
+      ],
+      "endpoints": [
+        "GET /api/auth/me",
+        "GET /api/clients",
+        "POST /api/clients"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "clients.spec.ts",
+      "title": "client management > clearing every client requires the intent to be stated",
+      "status": "passed",
+      "routes": [],
+      "endpoints": [
+        "DELETE /api/clients",
+        "GET /api/clients/{id}",
+        "POST /api/clients"
+      ],
+      "sourceFiles": []
+    },
+    {
+      "file": "clients.spec.ts",
+      "title": "client management > deleting a client removes it after the confirmation",
+      "status": "passed",
+      "routes": [
+        "/clients"
+      ],
+      "endpoints": [
+        "DELETE /api/clients/{id}",
+        "GET /api/auth/me",
+        "GET /api/clients",
+        "POST /api/clients"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "clients.spec.ts",
+      "title": "client management > dismissing the delete confirmation keeps the client",
+      "status": "passed",
+      "routes": [
+        "/clients"
+      ],
+      "endpoints": [
+        "GET /api/auth/me",
+        "GET /api/clients",
+        "POST /api/clients"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "clients.spec.ts",
+      "title": "client management > editing a client updates the row",
+      "status": "passed",
+      "routes": [
+        "/clients"
+      ],
+      "endpoints": [
+        "GET /api/auth/me",
+        "GET /api/clients",
+        "POST /api/clients",
+        "PUT /api/clients/{id}"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "clients.spec.ts",
+      "title": "client management > the API rejects a client with no name",
+      "status": "passed",
+      "routes": [],
+      "endpoints": [
+        "POST /api/clients"
+      ],
+      "sourceFiles": []
+    },
+    {
+      "file": "clients.spec.ts",
+      "title": "client management > the API rejects a malformed client email",
+      "status": "passed",
+      "routes": [],
+      "endpoints": [
+        "POST /api/clients"
+      ],
+      "sourceFiles": []
+    },
+    {
+      "file": "reports.spec.ts",
+      "title": "reporting > a client with no entries reports an empty state, not an error",
+      "status": "passed",
+      "routes": [
+        "/reports"
+      ],
+      "endpoints": [
+        "GET /api/auth/me",
+        "GET /api/clients",
+        "GET /api/reports/client/{id}",
+        "POST /api/clients"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "reports.spec.ts",
+      "title": "reporting > a client's report totals its hours and lists its entries",
+      "status": "passed",
+      "routes": [
+        "/reports"
+      ],
+      "endpoints": [
+        "GET /api/auth/me",
+        "GET /api/clients",
+        "GET /api/reports/client/{id}",
+        "POST /api/clients",
+        "POST /api/work-entries"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "reports.spec.ts",
+      "title": "reporting > a user with no clients is prompted to create one",
+      "status": "passed",
+      "routes": [
+        "/reports"
+      ],
+      "endpoints": [
+        "GET /api/auth/me",
+        "GET /api/clients"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "reports.spec.ts",
+      "title": "reporting > the CSV export downloads the entries as a file",
+      "status": "passed",
+      "routes": [
+        "/reports"
+      ],
+      "endpoints": [
+        "GET /api/auth/me",
+        "GET /api/clients",
+        "GET /api/reports/client/{id}",
+        "GET /api/reports/export/csv/{id}",
+        "POST /api/clients",
+        "POST /api/work-entries"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "reports.spec.ts",
+      "title": "reporting > the dashboard totals reflect the entries just logged",
+      "status": "passed",
+      "routes": [
+        "/dashboard"
+      ],
+      "endpoints": [
+        "GET /api/auth/me",
+        "GET /api/clients",
+        "GET /api/work-entries",
+        "POST /api/clients",
+        "POST /api/work-entries"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "reports.spec.ts",
+      "title": "reporting > the report API refuses a client the caller does not own",
+      "status": "passed",
+      "routes": [],
+      "endpoints": [
+        "GET /api/reports/client/{id}",
+        "POST /api/clients"
+      ],
+      "sourceFiles": []
+    },
+    {
+      "file": "reports.spec.ts",
+      "title": "reporting > the report API rejects a non-numeric client id",
+      "status": "passed",
+      "routes": [],
+      "endpoints": [
+        "GET /api/reports/client/not-a-number"
+      ],
+      "sourceFiles": []
+    },
+    {
+      "file": "reports.spec.ts",
+      "title": "reporting > the report shows only the selected client, not every client",
+      "status": "passed",
+      "routes": [
+        "/reports"
+      ],
+      "endpoints": [
+        "GET /api/auth/me",
+        "GET /api/clients",
+        "GET /api/reports/client/{id}",
+        "POST /api/clients",
+        "POST /api/work-entries"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "work-entries.spec.ts",
+      "title": "work entry logging > an entry cannot be logged against another user's client",
+      "status": "passed",
+      "routes": [],
+      "endpoints": [
+        "POST /api/clients",
+        "POST /api/work-entries"
+      ],
+      "sourceFiles": []
+    },
+    {
+      "file": "work-entries.spec.ts",
+      "title": "work entry logging > an entry logged against a client appears with its hours",
+      "status": "passed",
+      "routes": [
+        "/work-entries"
+      ],
+      "endpoints": [
+        "GET /api/auth/me",
+        "GET /api/clients",
+        "GET /api/work-entries",
+        "POST /api/clients",
+        "POST /api/work-entries"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "work-entries.spec.ts",
+      "title": "work entry logging > deleting an entry removes it from the list and the API",
+      "status": "passed",
+      "routes": [
+        "/work-entries"
+      ],
+      "endpoints": [
+        "DELETE /api/work-entries/{id}",
+        "GET /api/auth/me",
+        "GET /api/clients",
+        "GET /api/work-entries",
+        "GET /api/work-entries/{id}",
+        "POST /api/clients",
+        "POST /api/work-entries"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "work-entries.spec.ts",
+      "title": "work entry logging > editing an entry updates its hours",
+      "status": "passed",
+      "routes": [
+        "/work-entries"
+      ],
+      "endpoints": [
+        "GET /api/auth/me",
+        "GET /api/clients",
+        "GET /api/work-entries",
+        "POST /api/clients",
+        "POST /api/work-entries",
+        "PUT /api/work-entries/{id}"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "work-entries.spec.ts",
+      "title": "work entry logging > entries for several clients are listed together",
+      "status": "passed",
+      "routes": [
+        "/work-entries"
+      ],
+      "endpoints": [
+        "GET /api/auth/me",
+        "GET /api/clients",
+        "GET /api/work-entries",
+        "POST /api/clients",
+        "POST /api/work-entries"
+      ],
+      "sourceFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/api/client.ts",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/ClientsPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/ReportsPage.tsx",
+        "frontend/src/pages/WorkEntriesPage.tsx"
+      ]
+    },
+    {
+      "file": "work-entries.spec.ts",
+      "title": "work entry logging > the API rejects a malformed date",
+      "status": "passed",
+      "routes": [],
+      "endpoints": [
+        "POST /api/clients",
+        "POST /api/work-entries"
+      ],
+      "sourceFiles": []
+    },
+    {
+      "file": "work-entries.spec.ts",
+      "title": "work entry logging > the API rejects more hours than exist in a day",
+      "status": "passed",
+      "routes": [],
+      "endpoints": [
+        "POST /api/clients",
+        "POST /api/work-entries"
+      ],
+      "sourceFiles": []
+    },
+    {
+      "file": "work-entries.spec.ts",
+      "title": "work entry logging > the API rejects zero or negative hours",
+      "status": "passed",
+      "routes": [],
+      "endpoints": [
+        "POST /api/clients",
+        "POST /api/work-entries"
+      ],
+      "sourceFiles": []
+    }
+  ],
+  "byEndpoint": {
+    "DELETE /api/clients": [
+      "clients.spec.ts > client management > clearing every client requires the intent to be stated"
+    ],
+    "DELETE /api/clients/{id}": [
+      "clients.spec.ts > client management > deleting a client removes it after the confirmation"
+    ],
+    "DELETE /api/work-entries/{id}": [
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API"
+    ],
+    "GET /api/auth/me": [
+      "auth.spec.ts > api access control > GET /api/auth/me rejects a caller with no identity",
+      "auth.spec.ts > authentication > logging out clears the session and protects the route again",
+      "auth.spec.ts > authentication > the session survives a reload",
+      "clients.spec.ts > client management > a client created in the dialog appears in the list",
+      "clients.spec.ts > client management > a client survives a reload, so it was persisted and not just rendered",
+      "clients.spec.ts > client management > deleting a client removes it after the confirmation",
+      "clients.spec.ts > client management > dismissing the delete confirmation keeps the client",
+      "clients.spec.ts > client management > editing a client updates the row",
+      "reports.spec.ts > reporting > a client with no entries reports an empty state, not an error",
+      "reports.spec.ts > reporting > a client's report totals its hours and lists its entries",
+      "reports.spec.ts > reporting > a user with no clients is prompted to create one",
+      "reports.spec.ts > reporting > the CSV export downloads the entries as a file",
+      "reports.spec.ts > reporting > the dashboard totals reflect the entries just logged",
+      "reports.spec.ts > reporting > the report shows only the selected client, not every client",
+      "work-entries.spec.ts > work entry logging > an entry logged against a client appears with its hours",
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API",
+      "work-entries.spec.ts > work entry logging > editing an entry updates its hours",
+      "work-entries.spec.ts > work entry logging > entries for several clients are listed together"
+    ],
+    "GET /api/clients": [
+      "auth.spec.ts > api access control > a malformed identity header is rejected, not trusted",
+      "auth.spec.ts > api access control > GET /api/clients rejects a caller with no identity",
+      "auth.spec.ts > api access control > one user cannot read another user's clients",
+      "auth.spec.ts > authentication > a new user can log in and lands on the dashboard",
+      "auth.spec.ts > authentication > logging out clears the session and protects the route again",
+      "auth.spec.ts > authentication > the session survives a reload",
+      "clients.spec.ts > client management > a client created in the dialog appears in the list",
+      "clients.spec.ts > client management > a client survives a reload, so it was persisted and not just rendered",
+      "clients.spec.ts > client management > deleting a client removes it after the confirmation",
+      "clients.spec.ts > client management > dismissing the delete confirmation keeps the client",
+      "clients.spec.ts > client management > editing a client updates the row",
+      "reports.spec.ts > reporting > a client with no entries reports an empty state, not an error",
+      "reports.spec.ts > reporting > a client's report totals its hours and lists its entries",
+      "reports.spec.ts > reporting > a user with no clients is prompted to create one",
+      "reports.spec.ts > reporting > the CSV export downloads the entries as a file",
+      "reports.spec.ts > reporting > the dashboard totals reflect the entries just logged",
+      "reports.spec.ts > reporting > the report shows only the selected client, not every client",
+      "work-entries.spec.ts > work entry logging > an entry logged against a client appears with its hours",
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API",
+      "work-entries.spec.ts > work entry logging > editing an entry updates its hours",
+      "work-entries.spec.ts > work entry logging > entries for several clients are listed together"
+    ],
+    "GET /api/clients/{id}": [
+      "auth.spec.ts > api access control > one user cannot read another user's clients",
+      "clients.spec.ts > client management > clearing every client requires the intent to be stated"
+    ],
+    "GET /api/reports/client/{id}": [
+      "reports.spec.ts > reporting > a client with no entries reports an empty state, not an error",
+      "reports.spec.ts > reporting > a client's report totals its hours and lists its entries",
+      "reports.spec.ts > reporting > the CSV export downloads the entries as a file",
+      "reports.spec.ts > reporting > the report API refuses a client the caller does not own",
+      "reports.spec.ts > reporting > the report shows only the selected client, not every client"
+    ],
+    "GET /api/reports/client/not-a-number": [
+      "reports.spec.ts > reporting > the report API rejects a non-numeric client id"
+    ],
+    "GET /api/reports/export/csv/{id}": [
+      "reports.spec.ts > reporting > the CSV export downloads the entries as a file"
+    ],
+    "GET /api/work-entries": [
+      "auth.spec.ts > api access control > GET /api/work-entries rejects a caller with no identity",
+      "auth.spec.ts > authentication > a new user can log in and lands on the dashboard",
+      "auth.spec.ts > authentication > logging out clears the session and protects the route again",
+      "auth.spec.ts > authentication > the session survives a reload",
+      "reports.spec.ts > reporting > the dashboard totals reflect the entries just logged",
+      "work-entries.spec.ts > work entry logging > an entry logged against a client appears with its hours",
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API",
+      "work-entries.spec.ts > work entry logging > editing an entry updates its hours",
+      "work-entries.spec.ts > work entry logging > entries for several clients are listed together"
+    ],
+    "GET /api/work-entries/{id}": [
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API"
+    ],
+    "POST /api/auth/login": [
+      "auth.spec.ts > api access control > login validates the email before touching the database",
+      "auth.spec.ts > authentication > a new user can log in and lands on the dashboard",
+      "auth.spec.ts > authentication > the login form reports a rejected email instead of failing silently"
+    ],
+    "POST /api/clients": [
+      "auth.spec.ts > api access control > one user cannot read another user's clients",
+      "clients.spec.ts > client management > a client created in the dialog appears in the list",
+      "clients.spec.ts > client management > a client survives a reload, so it was persisted and not just rendered",
+      "clients.spec.ts > client management > clearing every client requires the intent to be stated",
+      "clients.spec.ts > client management > deleting a client removes it after the confirmation",
+      "clients.spec.ts > client management > dismissing the delete confirmation keeps the client",
+      "clients.spec.ts > client management > editing a client updates the row",
+      "clients.spec.ts > client management > the API rejects a client with no name",
+      "clients.spec.ts > client management > the API rejects a malformed client email",
+      "reports.spec.ts > reporting > a client with no entries reports an empty state, not an error",
+      "reports.spec.ts > reporting > a client's report totals its hours and lists its entries",
+      "reports.spec.ts > reporting > the CSV export downloads the entries as a file",
+      "reports.spec.ts > reporting > the dashboard totals reflect the entries just logged",
+      "reports.spec.ts > reporting > the report API refuses a client the caller does not own",
+      "reports.spec.ts > reporting > the report shows only the selected client, not every client",
+      "work-entries.spec.ts > work entry logging > an entry cannot be logged against another user's client",
+      "work-entries.spec.ts > work entry logging > an entry logged against a client appears with its hours",
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API",
+      "work-entries.spec.ts > work entry logging > editing an entry updates its hours",
+      "work-entries.spec.ts > work entry logging > entries for several clients are listed together",
+      "work-entries.spec.ts > work entry logging > the API rejects a malformed date",
+      "work-entries.spec.ts > work entry logging > the API rejects more hours than exist in a day",
+      "work-entries.spec.ts > work entry logging > the API rejects zero or negative hours"
+    ],
+    "POST /api/work-entries": [
+      "reports.spec.ts > reporting > a client's report totals its hours and lists its entries",
+      "reports.spec.ts > reporting > the CSV export downloads the entries as a file",
+      "reports.spec.ts > reporting > the dashboard totals reflect the entries just logged",
+      "reports.spec.ts > reporting > the report shows only the selected client, not every client",
+      "work-entries.spec.ts > work entry logging > an entry cannot be logged against another user's client",
+      "work-entries.spec.ts > work entry logging > an entry logged against a client appears with its hours",
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API",
+      "work-entries.spec.ts > work entry logging > editing an entry updates its hours",
+      "work-entries.spec.ts > work entry logging > entries for several clients are listed together",
+      "work-entries.spec.ts > work entry logging > the API rejects a malformed date",
+      "work-entries.spec.ts > work entry logging > the API rejects more hours than exist in a day",
+      "work-entries.spec.ts > work entry logging > the API rejects zero or negative hours"
+    ],
+    "PUT /api/clients/{id}": [
+      "clients.spec.ts > client management > editing a client updates the row"
+    ],
+    "PUT /api/work-entries/{id}": [
+      "work-entries.spec.ts > work entry logging > editing an entry updates its hours"
+    ]
+  },
+  "bySourceFile": {
+    "frontend/src/api/client.ts": [
+      "auth.spec.ts > authentication > a new user can log in and lands on the dashboard",
+      "auth.spec.ts > authentication > an anonymous visitor to a protected route is sent to login",
+      "auth.spec.ts > authentication > logging out clears the session and protects the route again",
+      "auth.spec.ts > authentication > the login form reports a rejected email instead of failing silently",
+      "auth.spec.ts > authentication > the session survives a reload",
+      "clients.spec.ts > client management > a client created in the dialog appears in the list",
+      "clients.spec.ts > client management > a client survives a reload, so it was persisted and not just rendered",
+      "clients.spec.ts > client management > deleting a client removes it after the confirmation",
+      "clients.spec.ts > client management > dismissing the delete confirmation keeps the client",
+      "clients.spec.ts > client management > editing a client updates the row",
+      "reports.spec.ts > reporting > a client with no entries reports an empty state, not an error",
+      "reports.spec.ts > reporting > a client's report totals its hours and lists its entries",
+      "reports.spec.ts > reporting > a user with no clients is prompted to create one",
+      "reports.spec.ts > reporting > the CSV export downloads the entries as a file",
+      "reports.spec.ts > reporting > the dashboard totals reflect the entries just logged",
+      "reports.spec.ts > reporting > the report shows only the selected client, not every client",
+      "work-entries.spec.ts > work entry logging > an entry logged against a client appears with its hours",
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API",
+      "work-entries.spec.ts > work entry logging > editing an entry updates its hours",
+      "work-entries.spec.ts > work entry logging > entries for several clients are listed together"
+    ],
+    "frontend/src/App.tsx": [
+      "auth.spec.ts > authentication > a new user can log in and lands on the dashboard",
+      "auth.spec.ts > authentication > an anonymous visitor to a protected route is sent to login",
+      "auth.spec.ts > authentication > logging out clears the session and protects the route again",
+      "auth.spec.ts > authentication > the login form reports a rejected email instead of failing silently",
+      "auth.spec.ts > authentication > the session survives a reload",
+      "clients.spec.ts > client management > a client created in the dialog appears in the list",
+      "clients.spec.ts > client management > a client survives a reload, so it was persisted and not just rendered",
+      "clients.spec.ts > client management > deleting a client removes it after the confirmation",
+      "clients.spec.ts > client management > dismissing the delete confirmation keeps the client",
+      "clients.spec.ts > client management > editing a client updates the row",
+      "reports.spec.ts > reporting > a client with no entries reports an empty state, not an error",
+      "reports.spec.ts > reporting > a client's report totals its hours and lists its entries",
+      "reports.spec.ts > reporting > a user with no clients is prompted to create one",
+      "reports.spec.ts > reporting > the CSV export downloads the entries as a file",
+      "reports.spec.ts > reporting > the dashboard totals reflect the entries just logged",
+      "reports.spec.ts > reporting > the report shows only the selected client, not every client",
+      "work-entries.spec.ts > work entry logging > an entry logged against a client appears with its hours",
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API",
+      "work-entries.spec.ts > work entry logging > editing an entry updates its hours",
+      "work-entries.spec.ts > work entry logging > entries for several clients are listed together"
+    ],
+    "frontend/src/components/Layout.tsx": [
+      "auth.spec.ts > authentication > a new user can log in and lands on the dashboard",
+      "auth.spec.ts > authentication > an anonymous visitor to a protected route is sent to login",
+      "auth.spec.ts > authentication > logging out clears the session and protects the route again",
+      "auth.spec.ts > authentication > the login form reports a rejected email instead of failing silently",
+      "auth.spec.ts > authentication > the session survives a reload",
+      "clients.spec.ts > client management > a client created in the dialog appears in the list",
+      "clients.spec.ts > client management > a client survives a reload, so it was persisted and not just rendered",
+      "clients.spec.ts > client management > deleting a client removes it after the confirmation",
+      "clients.spec.ts > client management > dismissing the delete confirmation keeps the client",
+      "clients.spec.ts > client management > editing a client updates the row",
+      "reports.spec.ts > reporting > a client with no entries reports an empty state, not an error",
+      "reports.spec.ts > reporting > a client's report totals its hours and lists its entries",
+      "reports.spec.ts > reporting > a user with no clients is prompted to create one",
+      "reports.spec.ts > reporting > the CSV export downloads the entries as a file",
+      "reports.spec.ts > reporting > the dashboard totals reflect the entries just logged",
+      "reports.spec.ts > reporting > the report shows only the selected client, not every client",
+      "work-entries.spec.ts > work entry logging > an entry logged against a client appears with its hours",
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API",
+      "work-entries.spec.ts > work entry logging > editing an entry updates its hours",
+      "work-entries.spec.ts > work entry logging > entries for several clients are listed together"
+    ],
+    "frontend/src/contexts/AuthContext.tsx": [
+      "auth.spec.ts > authentication > a new user can log in and lands on the dashboard",
+      "auth.spec.ts > authentication > an anonymous visitor to a protected route is sent to login",
+      "auth.spec.ts > authentication > logging out clears the session and protects the route again",
+      "auth.spec.ts > authentication > the login form reports a rejected email instead of failing silently",
+      "auth.spec.ts > authentication > the session survives a reload",
+      "clients.spec.ts > client management > a client created in the dialog appears in the list",
+      "clients.spec.ts > client management > a client survives a reload, so it was persisted and not just rendered",
+      "clients.spec.ts > client management > deleting a client removes it after the confirmation",
+      "clients.spec.ts > client management > dismissing the delete confirmation keeps the client",
+      "clients.spec.ts > client management > editing a client updates the row",
+      "reports.spec.ts > reporting > a client with no entries reports an empty state, not an error",
+      "reports.spec.ts > reporting > a client's report totals its hours and lists its entries",
+      "reports.spec.ts > reporting > a user with no clients is prompted to create one",
+      "reports.spec.ts > reporting > the CSV export downloads the entries as a file",
+      "reports.spec.ts > reporting > the dashboard totals reflect the entries just logged",
+      "reports.spec.ts > reporting > the report shows only the selected client, not every client",
+      "work-entries.spec.ts > work entry logging > an entry logged against a client appears with its hours",
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API",
+      "work-entries.spec.ts > work entry logging > editing an entry updates its hours",
+      "work-entries.spec.ts > work entry logging > entries for several clients are listed together"
+    ],
+    "frontend/src/hooks/useAuth.ts": [
+      "auth.spec.ts > authentication > a new user can log in and lands on the dashboard",
+      "auth.spec.ts > authentication > an anonymous visitor to a protected route is sent to login",
+      "auth.spec.ts > authentication > logging out clears the session and protects the route again",
+      "auth.spec.ts > authentication > the login form reports a rejected email instead of failing silently",
+      "auth.spec.ts > authentication > the session survives a reload",
+      "clients.spec.ts > client management > a client created in the dialog appears in the list",
+      "clients.spec.ts > client management > a client survives a reload, so it was persisted and not just rendered",
+      "clients.spec.ts > client management > deleting a client removes it after the confirmation",
+      "clients.spec.ts > client management > dismissing the delete confirmation keeps the client",
+      "clients.spec.ts > client management > editing a client updates the row",
+      "reports.spec.ts > reporting > a client with no entries reports an empty state, not an error",
+      "reports.spec.ts > reporting > a client's report totals its hours and lists its entries",
+      "reports.spec.ts > reporting > a user with no clients is prompted to create one",
+      "reports.spec.ts > reporting > the CSV export downloads the entries as a file",
+      "reports.spec.ts > reporting > the dashboard totals reflect the entries just logged",
+      "reports.spec.ts > reporting > the report shows only the selected client, not every client",
+      "work-entries.spec.ts > work entry logging > an entry logged against a client appears with its hours",
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API",
+      "work-entries.spec.ts > work entry logging > editing an entry updates its hours",
+      "work-entries.spec.ts > work entry logging > entries for several clients are listed together"
+    ],
+    "frontend/src/pages/ClientsPage.tsx": [
+      "auth.spec.ts > authentication > a new user can log in and lands on the dashboard",
+      "auth.spec.ts > authentication > an anonymous visitor to a protected route is sent to login",
+      "auth.spec.ts > authentication > logging out clears the session and protects the route again",
+      "auth.spec.ts > authentication > the login form reports a rejected email instead of failing silently",
+      "auth.spec.ts > authentication > the session survives a reload",
+      "clients.spec.ts > client management > a client created in the dialog appears in the list",
+      "clients.spec.ts > client management > a client survives a reload, so it was persisted and not just rendered",
+      "clients.spec.ts > client management > deleting a client removes it after the confirmation",
+      "clients.spec.ts > client management > dismissing the delete confirmation keeps the client",
+      "clients.spec.ts > client management > editing a client updates the row",
+      "reports.spec.ts > reporting > a client with no entries reports an empty state, not an error",
+      "reports.spec.ts > reporting > a client's report totals its hours and lists its entries",
+      "reports.spec.ts > reporting > a user with no clients is prompted to create one",
+      "reports.spec.ts > reporting > the CSV export downloads the entries as a file",
+      "reports.spec.ts > reporting > the dashboard totals reflect the entries just logged",
+      "reports.spec.ts > reporting > the report shows only the selected client, not every client",
+      "work-entries.spec.ts > work entry logging > an entry logged against a client appears with its hours",
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API",
+      "work-entries.spec.ts > work entry logging > editing an entry updates its hours",
+      "work-entries.spec.ts > work entry logging > entries for several clients are listed together"
+    ],
+    "frontend/src/pages/DashboardPage.tsx": [
+      "auth.spec.ts > authentication > a new user can log in and lands on the dashboard",
+      "auth.spec.ts > authentication > an anonymous visitor to a protected route is sent to login",
+      "auth.spec.ts > authentication > logging out clears the session and protects the route again",
+      "auth.spec.ts > authentication > the login form reports a rejected email instead of failing silently",
+      "auth.spec.ts > authentication > the session survives a reload",
+      "clients.spec.ts > client management > a client created in the dialog appears in the list",
+      "clients.spec.ts > client management > a client survives a reload, so it was persisted and not just rendered",
+      "clients.spec.ts > client management > deleting a client removes it after the confirmation",
+      "clients.spec.ts > client management > dismissing the delete confirmation keeps the client",
+      "clients.spec.ts > client management > editing a client updates the row",
+      "reports.spec.ts > reporting > a client with no entries reports an empty state, not an error",
+      "reports.spec.ts > reporting > a client's report totals its hours and lists its entries",
+      "reports.spec.ts > reporting > a user with no clients is prompted to create one",
+      "reports.spec.ts > reporting > the CSV export downloads the entries as a file",
+      "reports.spec.ts > reporting > the dashboard totals reflect the entries just logged",
+      "reports.spec.ts > reporting > the report shows only the selected client, not every client",
+      "work-entries.spec.ts > work entry logging > an entry logged against a client appears with its hours",
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API",
+      "work-entries.spec.ts > work entry logging > editing an entry updates its hours",
+      "work-entries.spec.ts > work entry logging > entries for several clients are listed together"
+    ],
+    "frontend/src/pages/LoginPage.tsx": [
+      "auth.spec.ts > authentication > a new user can log in and lands on the dashboard",
+      "auth.spec.ts > authentication > an anonymous visitor to a protected route is sent to login",
+      "auth.spec.ts > authentication > logging out clears the session and protects the route again",
+      "auth.spec.ts > authentication > the login form reports a rejected email instead of failing silently",
+      "auth.spec.ts > authentication > the session survives a reload",
+      "clients.spec.ts > client management > a client created in the dialog appears in the list",
+      "clients.spec.ts > client management > a client survives a reload, so it was persisted and not just rendered",
+      "clients.spec.ts > client management > deleting a client removes it after the confirmation",
+      "clients.spec.ts > client management > dismissing the delete confirmation keeps the client",
+      "clients.spec.ts > client management > editing a client updates the row",
+      "reports.spec.ts > reporting > a client with no entries reports an empty state, not an error",
+      "reports.spec.ts > reporting > a client's report totals its hours and lists its entries",
+      "reports.spec.ts > reporting > a user with no clients is prompted to create one",
+      "reports.spec.ts > reporting > the CSV export downloads the entries as a file",
+      "reports.spec.ts > reporting > the dashboard totals reflect the entries just logged",
+      "reports.spec.ts > reporting > the report shows only the selected client, not every client",
+      "work-entries.spec.ts > work entry logging > an entry logged against a client appears with its hours",
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API",
+      "work-entries.spec.ts > work entry logging > editing an entry updates its hours",
+      "work-entries.spec.ts > work entry logging > entries for several clients are listed together"
+    ],
+    "frontend/src/pages/ReportsPage.tsx": [
+      "auth.spec.ts > authentication > a new user can log in and lands on the dashboard",
+      "auth.spec.ts > authentication > an anonymous visitor to a protected route is sent to login",
+      "auth.spec.ts > authentication > logging out clears the session and protects the route again",
+      "auth.spec.ts > authentication > the login form reports a rejected email instead of failing silently",
+      "auth.spec.ts > authentication > the session survives a reload",
+      "clients.spec.ts > client management > a client created in the dialog appears in the list",
+      "clients.spec.ts > client management > a client survives a reload, so it was persisted and not just rendered",
+      "clients.spec.ts > client management > deleting a client removes it after the confirmation",
+      "clients.spec.ts > client management > dismissing the delete confirmation keeps the client",
+      "clients.spec.ts > client management > editing a client updates the row",
+      "reports.spec.ts > reporting > a client with no entries reports an empty state, not an error",
+      "reports.spec.ts > reporting > a client's report totals its hours and lists its entries",
+      "reports.spec.ts > reporting > a user with no clients is prompted to create one",
+      "reports.spec.ts > reporting > the CSV export downloads the entries as a file",
+      "reports.spec.ts > reporting > the dashboard totals reflect the entries just logged",
+      "reports.spec.ts > reporting > the report shows only the selected client, not every client",
+      "work-entries.spec.ts > work entry logging > an entry logged against a client appears with its hours",
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API",
+      "work-entries.spec.ts > work entry logging > editing an entry updates its hours",
+      "work-entries.spec.ts > work entry logging > entries for several clients are listed together"
+    ],
+    "frontend/src/pages/WorkEntriesPage.tsx": [
+      "auth.spec.ts > authentication > a new user can log in and lands on the dashboard",
+      "auth.spec.ts > authentication > an anonymous visitor to a protected route is sent to login",
+      "auth.spec.ts > authentication > logging out clears the session and protects the route again",
+      "auth.spec.ts > authentication > the login form reports a rejected email instead of failing silently",
+      "auth.spec.ts > authentication > the session survives a reload",
+      "clients.spec.ts > client management > a client created in the dialog appears in the list",
+      "clients.spec.ts > client management > a client survives a reload, so it was persisted and not just rendered",
+      "clients.spec.ts > client management > deleting a client removes it after the confirmation",
+      "clients.spec.ts > client management > dismissing the delete confirmation keeps the client",
+      "clients.spec.ts > client management > editing a client updates the row",
+      "reports.spec.ts > reporting > a client with no entries reports an empty state, not an error",
+      "reports.spec.ts > reporting > a client's report totals its hours and lists its entries",
+      "reports.spec.ts > reporting > a user with no clients is prompted to create one",
+      "reports.spec.ts > reporting > the CSV export downloads the entries as a file",
+      "reports.spec.ts > reporting > the dashboard totals reflect the entries just logged",
+      "reports.spec.ts > reporting > the report shows only the selected client, not every client",
+      "work-entries.spec.ts > work entry logging > an entry logged against a client appears with its hours",
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API",
+      "work-entries.spec.ts > work entry logging > editing an entry updates its hours",
+      "work-entries.spec.ts > work entry logging > entries for several clients are listed together"
+    ]
+  },
+  "byRoute": {
+    "/clients": [
+      "auth.spec.ts > authentication > an anonymous visitor to a protected route is sent to login",
+      "clients.spec.ts > client management > a client created in the dialog appears in the list",
+      "clients.spec.ts > client management > a client survives a reload, so it was persisted and not just rendered",
+      "clients.spec.ts > client management > deleting a client removes it after the confirmation",
+      "clients.spec.ts > client management > dismissing the delete confirmation keeps the client",
+      "clients.spec.ts > client management > editing a client updates the row"
+    ],
+    "/dashboard": [
+      "auth.spec.ts > authentication > logging out clears the session and protects the route again",
+      "auth.spec.ts > authentication > the session survives a reload",
+      "reports.spec.ts > reporting > the dashboard totals reflect the entries just logged"
+    ],
+    "/login": [
+      "auth.spec.ts > authentication > a new user can log in and lands on the dashboard",
+      "auth.spec.ts > authentication > the login form reports a rejected email instead of failing silently"
+    ],
+    "/reports": [
+      "reports.spec.ts > reporting > a client with no entries reports an empty state, not an error",
+      "reports.spec.ts > reporting > a client's report totals its hours and lists its entries",
+      "reports.spec.ts > reporting > a user with no clients is prompted to create one",
+      "reports.spec.ts > reporting > the CSV export downloads the entries as a file",
+      "reports.spec.ts > reporting > the report shows only the selected client, not every client"
+    ],
+    "/work-entries": [
+      "work-entries.spec.ts > work entry logging > an entry logged against a client appears with its hours",
+      "work-entries.spec.ts > work entry logging > deleting an entry removes it from the list and the API",
+      "work-entries.spec.ts > work entry logging > editing an entry updates its hours",
+      "work-entries.spec.ts > work entry logging > entries for several clients are listed together"
+    ]
+  }
+}

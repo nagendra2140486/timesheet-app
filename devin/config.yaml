@@ -1,0 +1,154 @@
+# PRQE run configuration.
+#
+# The PRQE playbooks (PR analysis, heartbeat, functional, performance, final analysis) are shared
+# across repositories and name nothing repo-specific. Everything they need to know about this
+# repository's layout is declared here.
+#
+# Placeholders substituted at run time: {backend_url} {frontend_url} {pr_id} {run_id} {commit}
+# {report_dir} {selection} {stage} {status} {started_at}
+#
+# This repository has no performance script, so that capability is declared unavailable rather than
+# left to fail at run time; the entry names what would enable it.
+
+schemaVersion: 1
+
+app:
+  name: timesheet-app
+  repository: https://github.com/Cognizant-FrontierAICyberDefense/timesheet-app/
+
+services:
+  backend:
+    # Defaults to :3001 locally; CRaaS supplies the deployed URL.
+    url: "{backend_url}"
+    health: /health
+  frontend:
+    url: "{frontend_url}"
+
+heartbeat:
+  script: devin/tools/heartbeat.py
+  command: >-
+    python3 devin/tools/heartbeat.py
+    --backend-url {backend_url} --frontend-url {frontend_url}
+    --run-id {run_id} --appname timesheet-app --commit {commit}
+    --out-dir {report_dir}
+  # Every check is declared here, not in the script. Note what it must NOT do: any request
+  # carrying x-user-email INSERTs that user if absent, so the auth surface is probed anonymously
+  # (401) and with a payload Joi rejects (400). A naive liveness login would write application data.
+  expectations: devin/tools/heartbeat-expectations.json
+  # 0 healthy · 1 a check failed · 2 never became ready
+  exit_codes: {healthy: 0, failed: 1, not_ready: 2}
+  report: "{report_dir}/heartbeat.md"
+  ready_timeout_seconds: 90
+  # SQLite runs in-memory: a backend restart empties the database, so there is no seed baseline
+  # to assert and heartbeat data is not durable.
+  seed_baseline: null
+
+publisher:
+  command: >-
+    python3 devin/tools/publish_report.py --file {file} --reporttype {reporttype}
+    --pr-id {pr_id} --appname timesheet-app
+    --repository https://github.com/Cognizant-FrontierAICyberDefense/timesheet-app/
+  endpoint: https://prqe-impact-api-frdubhcxh0aubjdz.canadacentral-01.azurewebsites.net/prqe-analysis
+
+agent_log:
+  # One row per stage: what it did, how long it took, what it cost. Separate from the reports above
+  # because report ids overwrite per PR, so cost history would erase itself on a re-run; these are
+  # keyed {appname}_{pr_id}_{stage}_{run_id} and accumulate. The same container also holds CRaaS's
+  # own per-PR text logs (`PR163`, with a free-text `agentLog`); rows written here carry
+  # `doctype: agent_log` so the two are distinguishable.
+  script: devin/tools/agent_log.py
+  command: >-
+    python3 devin/tools/agent_log.py --appname timesheet-app --pr-id {pr_id} --run-id {run_id}
+    --stage {stage} --status {status} --started-at {started_at}
+  endpoint: https://agent-log-a5d6dxe7hbd2bxa2.canadacentral-01.azurewebsites.net/agent-log
+  # Telemetry never fails the stage that produced it: a failed write exits 0 and prints to stderr.
+  blocking: false
+
+tickets:
+  # Maps each remediation ticket to the files its commits changed, so the final verdict can say
+  # which ticket a failing test belongs to. Ids are matched as VIT+digits anywhere in a commit
+  # title or body; commits with none are reported as non-ticket-related.
+  command: >-
+    python3 devin/tools/tickets.py --repo . --base {base} --head {head} --out {report_dir}/tickets.json
+
+impact:
+  # Both files are generated, never hand-edited: `npm run inventory` lists the tests and
+  # `npm run coverage:map` records what each one actually executed. Selection joins the diff against
+  # observed evidence (API endpoint, app route, frontend source file) instead of guessing from names.
+  spec_inventory: tests/spec-inventory.json
+  coverage_map: tests/coverage-map.json
+  # coverage-map.json resolves an API endpoint to the router that serves it by parsing these mounts,
+  # which is how a backend change reaches the tests that call it.
+  backend_mounts: backend/src/server.js
+  force_full:
+    - backend/src/server.js
+    - backend/src/database/**
+    - backend/src/middleware/auth.js
+    - "**/package.json"
+    - "**/package-lock.json"
+  # Authentication and authorisation journeys always run, whatever the diff touched.
+  mandatory_specs:
+    - tests/e2e/auth.spec.ts
+  # Code where "no test covers this" is a red verdict rather than a note. Declared rather than
+  # judged per run, so the same PR does not change colour between runs.
+  critical_paths:
+    - backend/src/server.js
+    - backend/src/middleware/**
+    - backend/src/routes/auth.js
+    - backend/src/validation/**
+    - backend/src/database/**
+  low_signal:
+    - "**/*.md"
+    - "**/tsconfig*.json"
+    - sonar-project.properties
+    - eslint.config.js
+    # PRQE's own tooling cannot affect the application under test.
+    - devin/**
+  # The recorded map observes all five app pages and every API route, so no wholesale unmapped area
+  # remains. A path missing from the map is a genuine gap and reported as uncovered.
+  unmapped_paths: []
+
+functional:
+  runner: playwright
+  working_dir: tests
+  # Run only when the toolchain is absent: the VM snapshot ships it, and reinstalling the browser
+  # on every run costs minutes of wall clock for no signal.
+  install: npm ci && npx playwright install --with-deps chromium
+  command: npx playwright test
+  # Playwright selects by test title, so {selection} is a regex over the titles in spec-inventory.json.
+  select_flag: --grep
+  empty_selection: skip
+  env:
+    TIMESHEET_BASE_URL: "{frontend_url}"
+    TIMESHEET_API_URL: "{backend_url}"
+  # Must hold on the *target*, not in this process: the backend rate-limits each IP to 100 requests
+  # per 15 minutes, and a full run from one address exceeds that around test 20. A throttled target
+  # returns 429s that look like regressions, so deploy it with RATE_LIMIT_MAX raised.
+  target_env:
+    RATE_LIMIT_MAX: "100000"
+  total_tests: 35  # 4 spec files, ~20s for the full run at 4 workers
+  # Real HTTP against whatever these URLs point at, so a run does verify the deployed build. Every
+  # test works in its own tenant (a unique x-user-email), which is what makes it safe against a
+  # shared database: it creates the data it needs and reads nobody else's rows.
+  targets_deployed_environment: true
+
+performance:
+  # No performance script in this repo. Add one (see voyagenie perf/critical-journeys.js) before
+  # the performance stage can run; until then the orchestrator records it as unavailable.
+  runner: null
+  command: null
+  triggers: []
+
+reports:
+  dir: reports/{run_id}
+  types:
+    pr_analysis: prqe-analysis
+    impact: impact-analysis
+    functional: regression-report
+    performance: perf-report
+    heartbeat: heartbeat-report
+    # One type for every colour. Splitting red out under `failure-analysis` meant a PR whose
+    # verdict changed between runs left a stale document behind under the other id, and every
+    # consumer had to query both types to list a run. The colour is already in the `verdict`
+    # field. `failure-analysis` stays a valid type in the API so earlier documents resolve.
+    verdict: verdict-report

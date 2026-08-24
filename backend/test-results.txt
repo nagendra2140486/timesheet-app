@@ -1,0 +1,1808 @@
+
+> time-tracking-backend@1.0.0 test:coverage
+> jest --coverage
+
+FAIL src/__tests__/database/init.test.js
+  Database Initialization
+    getDatabase
+      ✓ should create and return database instance (1 ms)
+      ✓ should return same database instance on multiple calls
+    initializeDatabase
+      ✓ should create all required tables (1 ms)
+      ✓ should create indexes for performance
+      ✓ should log success message
+      ✓ should resolve promise on success (1 ms)
+    closeDatabase
+      ✓ should close database connection
+      ✓ should handle close error gracefully
+      ✕ should handle multiple close calls safely (1 ms)
+    Database Schema
+      ✓ users table should have correct structure
+      ✓ clients table should have foreign key to users
+      ✓ work_entries table should have foreign keys
+
+  ● Database Initialization › closeDatabase › should handle multiple close calls safely
+
+    expect(jest.fn()).not.toHaveBeenCalled()
+
+    Expected number of calls: 0
+    Received number of calls: 1
+
+    1: "Error closing database:", [Error: Close error]
+
+      119 |       closeDatabase(); // Second call should not throw
+      120 |
+    > 121 |       expect(consoleErrorSpy).not.toHaveBeenCalled();
+          |                                   ^
+      122 |     });
+      123 |   });
+      124 |
+
+      at Object.toHaveBeenCalled (src/__tests__/database/init.test.js:121:35)
+
+  console.error
+    Database error: Error: Database error
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/clients.test.js:76:18)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as all] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at all (/Users/smitches/Documents/dev/general/backend/src/routes/clients.js:15:6)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:149:13)
+        at Route.dispatch (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:119:3)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:284:15
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at next (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/clients.test.js:10:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at router (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:47:12)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at jsonParser (/Users/smitches/Documents/dev/general/backend/node_modules/body-parser/lib/types/json.js:113:7)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at expressInit (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/init.js:40:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at query (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/query.js:45:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/application.js:181:10)
+        at Server.app (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/express.js:39:9)
+        at Server.emit (node:events:519:28)
+        at parserOnIncoming (node:_http_server:1186:12)
+        at HTTPParser.parserOnHeadersComplete (node:_http_common:122:17)
+
+      18 |     (err, rows) => {
+      19 |       if (err) {
+    > 20 |         console.error('Database error:', err);
+         |                 ^
+      21 |         return res.status(500).json({ error: 'Internal server error' });
+      22 |       }
+      23 |       
+
+      at error (src/routes/clients.js:20:17)
+      at Object.callback (src/__tests__/routes/clients.test.js:76:9)
+      at all (src/routes/clients.js:15:6)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at next (src/__tests__/routes/clients.test.js:10:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at jsonParser (node_modules/body-parser/lib/types/json.js:113:7)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at expressInit (node_modules/express/lib/middleware/init.js:40:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at query (node_modules/express/lib/middleware/query.js:45:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at Function.handle (node_modules/express/lib/application.js:181:10)
+      at Server.app (node_modules/express/lib/express.js:39:9)
+
+  console.error
+    Database error: Error: Database error
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/clients.test.js:120:18)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as get] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at get (/Users/smitches/Documents/dev/general/backend/src/routes/clients.js:39:6)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:149:13)
+        at Route.dispatch (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:119:3)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:284:15
+        at param (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:365:14)
+        at param (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:376:14)
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:421:3)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at next (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/clients.test.js:10:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at router (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:47:12)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at jsonParser (/Users/smitches/Documents/dev/general/backend/node_modules/body-parser/lib/types/json.js:113:7)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at expressInit (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/init.js:40:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at query (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/query.js:45:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/application.js:181:10)
+        at Server.app (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/express.js:39:9)
+        at Server.emit (node:events:519:28)
+        at parserOnIncoming (node:_http_server:1186:12)
+        at HTTPParser.parserOnHeadersComplete (node:_http_common:122:17)
+
+      42 |     (err, row) => {
+      43 |       if (err) {
+    > 44 |         console.error('Database error:', err);
+         |                 ^
+      45 |         return res.status(500).json({ error: 'Internal server error' });
+      46 |       }
+      47 |       
+
+      at error (src/routes/clients.js:44:17)
+      at Object.callback (src/__tests__/routes/clients.test.js:120:9)
+      at get (src/routes/clients.js:39:6)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at param (node_modules/express/lib/router/index.js:365:14)
+      at param (node_modules/express/lib/router/index.js:376:14)
+      at Function.process_params (node_modules/express/lib/router/index.js:421:3)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at next (src/__tests__/routes/clients.test.js:10:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at jsonParser (node_modules/body-parser/lib/types/json.js:113:7)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at expressInit (node_modules/express/lib/middleware/init.js:40:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at query (node_modules/express/lib/middleware/query.js:45:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at Function.handle (node_modules/express/lib/application.js:181:10)
+      at Server.app (node_modules/express/lib/express.js:39:9)
+
+  console.error
+    Database error: Error: Insert failed
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/clients.test.js:191:18)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as run] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at run (/Users/smitches/Documents/dev/general/backend/src/routes/clients.js:68:8)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:149:13)
+        at Route.dispatch (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:119:3)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:284:15
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at next (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/clients.test.js:10:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at router (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:47:12)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/body-parser/lib/read.js:137:5
+        at AsyncResource.runInAsyncScope (node:async_hooks:214:14)
+        at invokeCallback (/Users/smitches/Documents/dev/general/backend/node_modules/raw-body/index.js:238:16)
+        at done (/Users/smitches/Documents/dev/general/backend/node_modules/raw-body/index.js:227:7)
+        at IncomingMessage.onEnd (/Users/smitches/Documents/dev/general/backend/node_modules/raw-body/index.js:287:7)
+        at IncomingMessage.emit (node:events:519:28)
+        at endReadableNT (node:internal/streams/readable:1698:12)
+        at processTicksAndRejections (node:internal/process/task_queues:90:21)
+
+      71 |       function(err) {
+      72 |         if (err) {
+    > 73 |           console.error('Database error:', err);
+         |                   ^
+      74 |           return res.status(500).json({ error: 'Failed to create client' });
+      75 |         }
+      76 |
+
+      at error (src/routes/clients.js:73:19)
+      at Object.callback (src/__tests__/routes/clients.test.js:191:9)
+      at run (src/routes/clients.js:68:8)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at next (src/__tests__/routes/clients.test.js:10:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at node_modules/body-parser/lib/read.js:137:5
+      at invokeCallback (node_modules/raw-body/index.js:238:16)
+      at done (node_modules/raw-body/index.js:227:7)
+      at IncomingMessage.onEnd (node_modules/raw-body/index.js:287:7)
+
+  console.error
+    Database error: Error: Delete failed
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/clients.test.js:319:18)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as run] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at run (/Users/smitches/Documents/dev/general/backend/src/routes/clients.js:204:10)
+        at Object.callback (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/clients.test.js:315:9)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as get] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at get (/Users/smitches/Documents/dev/general/backend/src/routes/clients.js:190:6)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:149:13)
+        at Route.dispatch (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:119:3)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:284:15
+        at param (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:365:14)
+        at param (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:376:14)
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:421:3)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at next (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/clients.test.js:10:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at router (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:47:12)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at jsonParser (/Users/smitches/Documents/dev/general/backend/node_modules/body-parser/lib/types/json.js:113:7)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at expressInit (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/init.js:40:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at query (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/query.js:45:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/application.js:181:10)
+        at Server.app (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/express.js:39:9)
+        at Server.emit (node:events:519:28)
+        at parserOnIncoming (node:_http_server:1186:12)
+        at HTTPParser.parserOnHeadersComplete (node:_http_common:122:17)
+
+      207 |         function(err) {
+      208 |           if (err) {
+    > 209 |             console.error('Database error:', err);
+          |                     ^
+      210 |             return res.status(500).json({ error: 'Failed to delete client' });
+      211 |           }
+      212 |           
+
+      at error (src/routes/clients.js:209:21)
+      at Object.callback (src/__tests__/routes/clients.test.js:319:9)
+      at run (src/routes/clients.js:204:10)
+      at Object.callback (src/__tests__/routes/clients.test.js:315:9)
+      at get (src/routes/clients.js:190:6)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at param (node_modules/express/lib/router/index.js:365:14)
+      at param (node_modules/express/lib/router/index.js:376:14)
+      at Function.process_params (node_modules/express/lib/router/index.js:421:3)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at next (src/__tests__/routes/clients.test.js:10:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at jsonParser (node_modules/body-parser/lib/types/json.js:113:7)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at expressInit (node_modules/express/lib/middleware/init.js:40:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at query (node_modules/express/lib/middleware/query.js:45:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at Function.handle (node_modules/express/lib/application.js:181:10)
+      at Server.app (node_modules/express/lib/express.js:39:9)
+
+PASS src/__tests__/routes/clients.test.js
+  Client Routes
+    GET /api/clients
+      ✓ should return all clients for authenticated user (11 ms)
+      ✓ should return empty array when no clients exist (1 ms)
+      ✓ should handle database error (17 ms)
+    GET /api/clients/:id
+      ✓ should return specific client (1 ms)
+      ✓ should return 404 if client not found (2 ms)
+      ✓ should return 400 for invalid client ID (1 ms)
+      ✓ should handle database error (3 ms)
+    POST /api/clients
+      ✓ should create new client with valid data (8 ms)
+      ✓ should create client without description (2 ms)
+      ✓ should return 400 for missing name (2 ms)
+      ✓ should return 400 for empty name (2 ms)
+      ✓ should handle database insert error (4 ms)
+    PUT /api/clients/:id
+      ✓ should update client name (2 ms)
+      ✓ should update client description (1 ms)
+      ✓ should return 404 if client not found
+      ✓ should return 400 for invalid client ID (1 ms)
+      ✓ should return 400 for empty update (3 ms)
+    DELETE /api/clients/:id
+      ✓ should delete existing client (2 ms)
+      ✓ should return 404 if client not found
+      ✓ should return 400 for invalid client ID
+      ✓ should handle database delete error (3 ms)
+
+  console.error
+    Database error: Error: Database error
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/workEntries.test.js:82:18)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as all] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at all (/Users/smitches/Documents/dev/general/backend/src/routes/workEntries.js:37:6)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:149:13)
+        at Route.dispatch (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:119:3)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:284:15
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at next (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/workEntries.test.js:10:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at router (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:47:12)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at jsonParser (/Users/smitches/Documents/dev/general/backend/node_modules/body-parser/lib/types/json.js:113:7)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at expressInit (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/init.js:40:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at query (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/query.js:45:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/application.js:181:10)
+        at Server.app (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/express.js:39:9)
+        at Server.emit (node:events:519:28)
+        at parserOnIncoming (node:_http_server:1186:12)
+        at HTTPParser.parserOnHeadersComplete (node:_http_common:122:17)
+
+      37 |   db.all(query, params, (err, rows) => {
+      38 |     if (err) {
+    > 39 |       console.error('Database error:', err);
+         |               ^
+      40 |       return res.status(500).json({ error: 'Internal server error' });
+      41 |     }
+      42 |     
+
+      at error (src/routes/workEntries.js:39:15)
+      at Object.callback (src/__tests__/routes/workEntries.test.js:82:9)
+      at all (src/routes/workEntries.js:37:6)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at next (src/__tests__/routes/workEntries.test.js:10:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at jsonParser (node_modules/body-parser/lib/types/json.js:113:7)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at expressInit (node_modules/express/lib/middleware/init.js:40:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at query (node_modules/express/lib/middleware/query.js:45:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at Function.handle (node_modules/express/lib/application.js:181:10)
+      at Server.app (node_modules/express/lib/express.js:39:9)
+
+  console.error
+    Database error: Error: Insert failed
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/workEntries.test.js:210:18)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as run] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at run (/Users/smitches/Documents/dev/general/backend/src/routes/workEntries.js:105:12)
+        at Object.callback (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/workEntries.test.js:206:9)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as get] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at get (/Users/smitches/Documents/dev/general/backend/src/routes/workEntries.js:91:8)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:149:13)
+        at Route.dispatch (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:119:3)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:284:15
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at next (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/workEntries.test.js:10:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at router (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:47:12)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/body-parser/lib/read.js:137:5
+        at AsyncResource.runInAsyncScope (node:async_hooks:214:14)
+        at invokeCallback (/Users/smitches/Documents/dev/general/backend/node_modules/raw-body/index.js:238:16)
+        at done (/Users/smitches/Documents/dev/general/backend/node_modules/raw-body/index.js:227:7)
+        at IncomingMessage.onEnd (/Users/smitches/Documents/dev/general/backend/node_modules/raw-body/index.js:287:7)
+        at IncomingMessage.emit (node:events:519:28)
+        at endReadableNT (node:internal/streams/readable:1698:12)
+        at processTicksAndRejections (node:internal/process/task_queues:90:21)
+
+      108 |           function(err) {
+      109 |             if (err) {
+    > 110 |               console.error('Database error:', err);
+          |                       ^
+      111 |               return res.status(500).json({ error: 'Failed to create work entry' });
+      112 |             }
+      113 |
+
+      at error (src/routes/workEntries.js:110:23)
+      at Object.callback (src/__tests__/routes/workEntries.test.js:210:9)
+      at run (src/routes/workEntries.js:105:12)
+      at Object.callback (src/__tests__/routes/workEntries.test.js:206:9)
+      at get (src/routes/workEntries.js:91:8)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at next (src/__tests__/routes/workEntries.test.js:10:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at node_modules/body-parser/lib/read.js:137:5
+      at invokeCallback (node_modules/raw-body/index.js:238:16)
+      at done (node_modules/raw-body/index.js:227:7)
+      at IncomingMessage.onEnd (node_modules/raw-body/index.js:287:7)
+
+  console.error
+    Database error: Error: Delete failed
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/workEntries.test.js:352:18)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as run] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at run (/Users/smitches/Documents/dev/general/backend/src/routes/workEntries.js:285:10)
+        at Object.callback (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/workEntries.test.js:348:9)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as get] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at get (/Users/smitches/Documents/dev/general/backend/src/routes/workEntries.js:271:6)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:149:13)
+        at Route.dispatch (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:119:3)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:284:15
+        at param (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:365:14)
+        at param (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:376:14)
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:421:3)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at next (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/workEntries.test.js:10:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at router (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:47:12)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at jsonParser (/Users/smitches/Documents/dev/general/backend/node_modules/body-parser/lib/types/json.js:113:7)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at expressInit (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/init.js:40:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at query (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/query.js:45:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/application.js:181:10)
+        at Server.app (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/express.js:39:9)
+        at Server.emit (node:events:519:28)
+        at parserOnIncoming (node:_http_server:1186:12)
+        at HTTPParser.parserOnHeadersComplete (node:_http_common:122:17)
+
+      288 |         function(err) {
+      289 |           if (err) {
+    > 290 |             console.error('Database error:', err);
+          |                     ^
+      291 |             return res.status(500).json({ error: 'Failed to delete work entry' });
+      292 |           }
+      293 |           
+
+      at error (src/routes/workEntries.js:290:21)
+      at Object.callback (src/__tests__/routes/workEntries.test.js:352:9)
+      at run (src/routes/workEntries.js:285:10)
+      at Object.callback (src/__tests__/routes/workEntries.test.js:348:9)
+      at get (src/routes/workEntries.js:271:6)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at param (node_modules/express/lib/router/index.js:365:14)
+      at param (node_modules/express/lib/router/index.js:376:14)
+      at Function.process_params (node_modules/express/lib/router/index.js:421:3)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at next (src/__tests__/routes/workEntries.test.js:10:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at jsonParser (node_modules/body-parser/lib/types/json.js:113:7)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at expressInit (node_modules/express/lib/middleware/init.js:40:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at query (node_modules/express/lib/middleware/query.js:45:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at Function.handle (node_modules/express/lib/application.js:181:10)
+      at Server.app (node_modules/express/lib/express.js:39:9)
+
+PASS src/__tests__/routes/workEntries.test.js
+  Work Entry Routes
+    GET /api/work-entries
+      ✓ should return all work entries for user (1 ms)
+      ✓ should filter by client ID when provided (2 ms)
+      ✓ should return 400 for invalid client ID filter (1 ms)
+      ✓ should handle database error (12 ms)
+    GET /api/work-entries/:id
+      ✓ should return specific work entry (1 ms)
+      ✓ should return 404 if work entry not found (1 ms)
+      ✓ should return 400 for invalid work entry ID (1 ms)
+    POST /api/work-entries
+      ✓ should create work entry with valid data (3 ms)
+      ✓ should return 400 if client not found (1 ms)
+      ✓ should return 400 for missing required fields (1 ms)
+      ✓ should return 400 for invalid hours (1 ms)
+      ✓ should return 400 for hours exceeding 24 (1 ms)
+      ✓ should handle database error on insert (4 ms)
+    PUT /api/work-entries/:id
+      ✓ should update work entry hours (2 ms)
+      ✓ should update work entry client (1 ms)
+      ✓ should return 404 if work entry not found (1 ms)
+      ✓ should return 400 for invalid work entry ID
+      ✓ should return 400 for empty update (1 ms)
+      ✓ should return 400 if new client not found (1 ms)
+    DELETE /api/work-entries/:id
+      ✓ should delete existing work entry (1 ms)
+      ✓ should return 404 if work entry not found (1 ms)
+      ✓ should return 400 for invalid work entry ID (1 ms)
+      ✓ should handle database delete error (4 ms)
+
+  console.error
+    Database error: Error: Database error
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/reports.test.js:124:18)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as get] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at get (/Users/smitches/Documents/dev/general/backend/src/routes/reports.js:25:6)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:149:13)
+        at Route.dispatch (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:119:3)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:284:15
+        at param (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:365:14)
+        at param (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:376:14)
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:421:3)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at next (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/reports.test.js:33:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at router (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:47:12)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at jsonParser (/Users/smitches/Documents/dev/general/backend/node_modules/body-parser/lib/types/json.js:113:7)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at expressInit (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/init.js:40:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at query (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/query.js:45:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/application.js:181:10)
+        at Server.app (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/express.js:39:9)
+        at Server.emit (node:events:519:28)
+        at parserOnIncoming (node:_http_server:1186:12)
+        at HTTPParser.parserOnHeadersComplete (node:_http_common:122:17)
+
+      28 |     (err, client) => {
+      29 |       if (err) {
+    > 30 |         console.error('Database error:', err);
+         |                 ^
+      31 |         return res.status(500).json({ error: 'Internal server error' });
+      32 |       }
+      33 |       
+
+      at error (src/routes/reports.js:30:17)
+      at Object.callback (src/__tests__/routes/reports.test.js:124:9)
+      at get (src/routes/reports.js:25:6)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at param (node_modules/express/lib/router/index.js:365:14)
+      at param (node_modules/express/lib/router/index.js:376:14)
+      at Function.process_params (node_modules/express/lib/router/index.js:421:3)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at next (src/__tests__/routes/reports.test.js:33:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at jsonParser (node_modules/body-parser/lib/types/json.js:113:7)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at expressInit (node_modules/express/lib/middleware/init.js:40:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at query (node_modules/express/lib/middleware/query.js:45:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at Function.handle (node_modules/express/lib/application.js:181:10)
+      at Server.app (node_modules/express/lib/express.js:39:9)
+
+  console.error
+    Database error: Error: Database error
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/reports.test.js:139:18)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as all] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at all (/Users/smitches/Documents/dev/general/backend/src/routes/reports.js:39:10)
+        at Object.callback (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/reports.test.js:135:9)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as get] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at get (/Users/smitches/Documents/dev/general/backend/src/routes/reports.js:25:6)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:149:13)
+        at Route.dispatch (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:119:3)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:284:15
+        at param (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:365:14)
+        at param (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:376:14)
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:421:3)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at next (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/reports.test.js:33:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at router (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:47:12)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at jsonParser (/Users/smitches/Documents/dev/general/backend/node_modules/body-parser/lib/types/json.js:113:7)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at expressInit (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/init.js:40:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at query (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/query.js:45:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/application.js:181:10)
+        at Server.app (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/express.js:39:9)
+        at Server.emit (node:events:519:28)
+        at parserOnIncoming (node:_http_server:1186:12)
+        at HTTPParser.parserOnHeadersComplete (node:_http_common:122:17)
+
+      45 |         (err, workEntries) => {
+      46 |           if (err) {
+    > 47 |             console.error('Database error:', err);
+         |                     ^
+      48 |             return res.status(500).json({ error: 'Internal server error' });
+      49 |           }
+      50 |           
+
+      at error (src/routes/reports.js:47:21)
+      at Object.callback (src/__tests__/routes/reports.test.js:139:9)
+      at all (src/routes/reports.js:39:10)
+      at Object.callback (src/__tests__/routes/reports.test.js:135:9)
+      at get (src/routes/reports.js:25:6)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at param (node_modules/express/lib/router/index.js:365:14)
+      at param (node_modules/express/lib/router/index.js:376:14)
+      at Function.process_params (node_modules/express/lib/router/index.js:421:3)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at next (src/__tests__/routes/reports.test.js:33:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at jsonParser (node_modules/body-parser/lib/types/json.js:113:7)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at expressInit (node_modules/express/lib/middleware/init.js:40:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at query (node_modules/express/lib/middleware/query.js:45:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at Function.handle (node_modules/express/lib/application.js:181:10)
+      at Server.app (node_modules/express/lib/express.js:39:9)
+
+  console.error
+    Database error: Error: Database error
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/reports.test.js:189:18)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as get] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at get (/Users/smitches/Documents/dev/general/backend/src/routes/reports.js:77:6)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:149:13)
+        at Route.dispatch (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:119:3)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:284:15
+        at param (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:365:14)
+        at param (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:376:14)
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:421:3)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at next (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/reports.test.js:33:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at router (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:47:12)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at jsonParser (/Users/smitches/Documents/dev/general/backend/node_modules/body-parser/lib/types/json.js:113:7)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at expressInit (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/init.js:40:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at query (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/query.js:45:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/application.js:181:10)
+        at Server.app (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/express.js:39:9)
+        at Server.emit (node:events:519:28)
+        at parserOnIncoming (node:_http_server:1186:12)
+        at HTTPParser.parserOnHeadersComplete (node:_http_common:122:17)
+
+      80 |     (err, client) => {
+      81 |       if (err) {
+    > 82 |         console.error('Database error:', err);
+         |                 ^
+      83 |         return res.status(500).json({ error: 'Internal server error' });
+      84 |       }
+      85 |       
+
+      at error (src/routes/reports.js:82:17)
+      at Object.callback (src/__tests__/routes/reports.test.js:189:9)
+      at get (src/routes/reports.js:77:6)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at param (node_modules/express/lib/router/index.js:365:14)
+      at param (node_modules/express/lib/router/index.js:376:14)
+      at Function.process_params (node_modules/express/lib/router/index.js:421:3)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at next (src/__tests__/routes/reports.test.js:33:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at jsonParser (node_modules/body-parser/lib/types/json.js:113:7)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at expressInit (node_modules/express/lib/middleware/init.js:40:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at query (node_modules/express/lib/middleware/query.js:45:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at Function.handle (node_modules/express/lib/application.js:181:10)
+      at Server.app (node_modules/express/lib/express.js:39:9)
+
+  console.error
+    Database error: Error: Database error
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/reports.test.js:204:18)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as all] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at all (/Users/smitches/Documents/dev/general/backend/src/routes/reports.js:91:10)
+        at Object.callback (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/reports.test.js:200:9)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as get] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at get (/Users/smitches/Documents/dev/general/backend/src/routes/reports.js:77:6)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:149:13)
+        at Route.dispatch (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:119:3)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:284:15
+        at param (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:365:14)
+        at param (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:376:14)
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:421:3)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at next (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/reports.test.js:33:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at router (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:47:12)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at jsonParser (/Users/smitches/Documents/dev/general/backend/node_modules/body-parser/lib/types/json.js:113:7)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at expressInit (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/init.js:40:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at query (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/query.js:45:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/application.js:181:10)
+        at Server.app (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/express.js:39:9)
+        at Server.emit (node:events:519:28)
+        at parserOnIncoming (node:_http_server:1186:12)
+        at HTTPParser.parserOnHeadersComplete (node:_http_common:122:17)
+
+       97 |         (err, workEntries) => {
+       98 |           if (err) {
+    >  99 |             console.error('Database error:', err);
+          |                     ^
+      100 |             return res.status(500).json({ error: 'Internal server error' });
+      101 |           }
+      102 |           
+
+      at error (src/routes/reports.js:99:21)
+      at Object.callback (src/__tests__/routes/reports.test.js:204:9)
+      at all (src/routes/reports.js:91:10)
+      at Object.callback (src/__tests__/routes/reports.test.js:200:9)
+      at get (src/routes/reports.js:77:6)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at param (node_modules/express/lib/router/index.js:365:14)
+      at param (node_modules/express/lib/router/index.js:376:14)
+      at Function.process_params (node_modules/express/lib/router/index.js:421:3)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at next (src/__tests__/routes/reports.test.js:33:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at jsonParser (node_modules/body-parser/lib/types/json.js:113:7)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at expressInit (node_modules/express/lib/middleware/init.js:40:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at query (node_modules/express/lib/middleware/query.js:45:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at Function.handle (node_modules/express/lib/application.js:181:10)
+      at Server.app (node_modules/express/lib/express.js:39:9)
+
+  console.error
+    Database error: Error: Database error
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/reports.test.js:235:18)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as get] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at get (/Users/smitches/Documents/dev/general/backend/src/routes/reports.js:160:6)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:149:13)
+        at Route.dispatch (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:119:3)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:284:15
+        at param (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:365:14)
+        at param (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:376:14)
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:421:3)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at next (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/reports.test.js:33:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at router (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:47:12)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at jsonParser (/Users/smitches/Documents/dev/general/backend/node_modules/body-parser/lib/types/json.js:113:7)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at expressInit (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/init.js:40:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at query (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/query.js:45:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/application.js:181:10)
+        at Server.app (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/express.js:39:9)
+        at Server.emit (node:events:519:28)
+        at parserOnIncoming (node:_http_server:1186:12)
+        at HTTPParser.parserOnHeadersComplete (node:_http_common:122:17)
+
+      163 |     (err, client) => {
+      164 |       if (err) {
+    > 165 |         console.error('Database error:', err);
+          |                 ^
+      166 |         return res.status(500).json({ error: 'Internal server error' });
+      167 |       }
+      168 |       
+
+      at error (src/routes/reports.js:165:17)
+      at Object.callback (src/__tests__/routes/reports.test.js:235:9)
+      at get (src/routes/reports.js:160:6)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at param (node_modules/express/lib/router/index.js:365:14)
+      at param (node_modules/express/lib/router/index.js:376:14)
+      at Function.process_params (node_modules/express/lib/router/index.js:421:3)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at next (src/__tests__/routes/reports.test.js:33:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at jsonParser (node_modules/body-parser/lib/types/json.js:113:7)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at expressInit (node_modules/express/lib/middleware/init.js:40:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at query (node_modules/express/lib/middleware/query.js:45:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at Function.handle (node_modules/express/lib/application.js:181:10)
+      at Server.app (node_modules/express/lib/express.js:39:9)
+
+PASS src/__tests__/routes/reports.test.js
+  Report Routes
+    GET /api/reports/client/:clientId
+      ✓ should return client report with work entries (3 ms)
+      ✓ should return report with zero hours for client with no entries (4 ms)
+      ✓ should return 404 if client not found (2 ms)
+      ✓ should return 400 for invalid client ID (2 ms)
+      ✓ should handle database error when fetching client (18 ms)
+      ✓ should handle database error when fetching work entries (4 ms)
+      ✓ should filter work entries by user email (2 ms)
+    GET /api/reports/export/csv/:clientId
+      ✓ should return 400 for invalid client ID (1 ms)
+      ✓ should return 404 if client not found (6 ms)
+      ✓ should handle database error when fetching client (4 ms)
+      ✓ should handle database error when fetching work entries (2 ms)
+    GET /api/reports/export/pdf/:clientId
+      ✓ should return 400 for invalid client ID (1 ms)
+      ✓ should return 404 if client not found (1 ms)
+      ✓ should handle database error (2 ms)
+    Data Isolation
+      ✓ should only return data for authenticated user (1 ms)
+    Hours Calculation
+      ✓ should correctly sum decimal hours (1 ms)
+      ✓ should handle integer hours (1 ms)
+
+  console.error
+    Database error: Error: Database error
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/auth.test.js:97:18)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as get] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at get (/Users/smitches/Documents/dev/general/backend/src/routes/auth.js:20:8)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:149:13)
+        at Route.dispatch (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:119:3)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:284:15
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at router (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:47:12)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/body-parser/lib/read.js:137:5
+        at AsyncResource.runInAsyncScope (node:async_hooks:214:14)
+        at invokeCallback (/Users/smitches/Documents/dev/general/backend/node_modules/raw-body/index.js:238:16)
+        at done (/Users/smitches/Documents/dev/general/backend/node_modules/raw-body/index.js:227:7)
+        at IncomingMessage.onEnd (/Users/smitches/Documents/dev/general/backend/node_modules/raw-body/index.js:287:7)
+        at IncomingMessage.emit (node:events:519:28)
+        at endReadableNT (node:internal/streams/readable:1698:12)
+        at processTicksAndRejections (node:internal/process/task_queues:90:21)
+
+      20 |     db.get('SELECT email, created_at FROM users WHERE email = ?', [email], (err, row) => {
+      21 |       if (err) {
+    > 22 |         console.error('Database error:', err);
+         |                 ^
+      23 |         return res.status(500).json({ error: 'Internal server error' });
+      24 |       }
+      25 |
+
+      at error (src/routes/auth.js:22:17)
+      at Object.callback (src/__tests__/routes/auth.test.js:97:9)
+      at get (src/routes/auth.js:20:8)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at node_modules/body-parser/lib/read.js:137:5
+      at invokeCallback (node_modules/raw-body/index.js:238:16)
+      at done (node_modules/raw-body/index.js:227:7)
+      at IncomingMessage.onEnd (node_modules/raw-body/index.js:287:7)
+
+  console.error
+    Error creating user: Error: Insert failed
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/auth.test.js:114:18)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as run] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at run (/Users/smitches/Documents/dev/general/backend/src/routes/auth.js:37:12)
+        at Object.callback (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/auth.test.js:110:9)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as get] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at get (/Users/smitches/Documents/dev/general/backend/src/routes/auth.js:20:8)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:149:13)
+        at Route.dispatch (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:119:3)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:284:15
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at router (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:47:12)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/body-parser/lib/read.js:137:5
+        at AsyncResource.runInAsyncScope (node:async_hooks:214:14)
+        at invokeCallback (/Users/smitches/Documents/dev/general/backend/node_modules/raw-body/index.js:238:16)
+        at done (/Users/smitches/Documents/dev/general/backend/node_modules/raw-body/index.js:227:7)
+        at IncomingMessage.onEnd (/Users/smitches/Documents/dev/general/backend/node_modules/raw-body/index.js:287:7)
+        at IncomingMessage.emit (node:events:519:28)
+        at endReadableNT (node:internal/streams/readable:1698:12)
+        at processTicksAndRejections (node:internal/process/task_queues:90:21)
+
+      37 |         db.run('INSERT INTO users (email) VALUES (?)', [email], function(err) {
+      38 |           if (err) {
+    > 39 |             console.error('Error creating user:', err);
+         |                     ^
+      40 |             return res.status(500).json({ error: 'Failed to create user' });
+      41 |           }
+      42 |
+
+      at error (src/routes/auth.js:39:21)
+      at Object.callback (src/__tests__/routes/auth.test.js:114:9)
+      at run (src/routes/auth.js:37:12)
+      at Object.callback (src/__tests__/routes/auth.test.js:110:9)
+      at get (src/routes/auth.js:20:8)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at node_modules/body-parser/lib/read.js:137:5
+      at invokeCallback (node_modules/raw-body/index.js:238:16)
+      at done (node_modules/raw-body/index.js:227:7)
+      at IncomingMessage.onEnd (node_modules/raw-body/index.js:287:7)
+
+  console.error
+    Database error: Error: Database error
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/auth.test.js:177:20)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as get] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at get (/Users/smitches/Documents/dev/general/backend/src/routes/auth.js:62:6)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:149:13)
+        at next (/Users/smitches/Documents/dev/general/backend/src/middleware/auth.js:39:7)
+        at Object.callback (/Users/smitches/Documents/dev/general/backend/src/__tests__/routes/auth.test.js:175:11)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as get] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at get (/Users/smitches/Documents/dev/general/backend/src/middleware/auth.js:20:6)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:149:13)
+        at Route.dispatch (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/route.js:119:3)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:284:15
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at router (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:47:12)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at jsonParser (/Users/smitches/Documents/dev/general/backend/node_modules/body-parser/lib/types/json.js:113:7)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at expressInit (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/init.js:40:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at query (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/middleware/query.js:45:5)
+        at Layer.handle [as handle_request] (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/layer.js:95:5)
+        at trim_prefix (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:328:13)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:286:9
+        at Function.process_params (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:346:12)
+        at next (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:280:10)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/router/index.js:175:3)
+        at Function.handle (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/application.js:181:10)
+        at Server.app (/Users/smitches/Documents/dev/general/backend/node_modules/express/lib/express.js:39:9)
+        at Server.emit (node:events:519:28)
+        at parserOnIncoming (node:_http_server:1186:12)
+        at HTTPParser.parserOnHeadersComplete (node:_http_common:122:17)
+
+      62 |   db.get('SELECT email, created_at FROM users WHERE email = ?', [req.userEmail], (err, row) => {
+      63 |     if (err) {
+    > 64 |       console.error('Database error:', err);
+         |               ^
+      65 |       return res.status(500).json({ error: 'Internal server error' });
+      66 |     }
+      67 |
+
+      at error (src/routes/auth.js:64:15)
+      at Object.callback (src/__tests__/routes/auth.test.js:177:11)
+      at get (src/routes/auth.js:62:6)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at next (src/middleware/auth.js:39:7)
+      at Object.callback (src/__tests__/routes/auth.test.js:175:11)
+      at get (src/middleware/auth.js:20:6)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at jsonParser (node_modules/body-parser/lib/types/json.js:113:7)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at expressInit (node_modules/express/lib/middleware/init.js:40:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at query (node_modules/express/lib/middleware/query.js:45:5)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at Function.handle (node_modules/express/lib/application.js:181:10)
+      at Server.app (node_modules/express/lib/express.js:39:9)
+
+PASS src/__tests__/routes/auth.test.js
+  Auth Routes
+    POST /api/auth/login
+      ✓ should login existing user (3 ms)
+      ✓ should create new user on first login (2 ms)
+      ✓ should return 400 for invalid email (1 ms)
+      ✓ should return 400 for missing email (1 ms)
+      ✓ should handle database error when checking user (8 ms)
+      ✓ should handle database error when creating user (2 ms)
+    GET /api/auth/me
+      ✓ should return current user info (1 ms)
+      ✓ should return 401 if no email header provided
+      ✓ should return 404 if user not found (1 ms)
+      ✓ should handle database error (4 ms)
+
+PASS src/__tests__/validation/schemas.test.js
+  Validation Schemas
+    clientSchema
+      ✓ should validate valid client data
+      ✓ should allow empty description (1 ms)
+      ✓ should allow missing description
+      ✓ should reject missing name
+      ✓ should reject empty name
+      ✓ should reject name longer than 255 characters
+      ✓ should reject description longer than 1000 characters
+      ✓ should trim whitespace from name
+    workEntrySchema
+      ✓ should validate valid work entry
+      ✓ should allow empty description
+      ✓ should reject missing clientId
+      ✓ should reject negative clientId (1 ms)
+      ✓ should reject zero clientId
+      ✓ should reject missing hours
+      ✓ should reject negative hours
+      ✓ should reject hours greater than 24
+      ✓ should accept decimal hours
+      ✓ should reject missing date
+      ✓ should reject invalid date format
+    updateWorkEntrySchema
+      ✓ should validate partial update
+      ✓ should validate multiple field update
+      ✓ should reject empty update (1 ms)
+      ✓ should validate clientId update
+      ✓ should validate date update
+    updateClientSchema
+      ✓ should validate name update
+      ✓ should validate description update
+      ✓ should reject empty update
+      ✓ should validate both fields update
+    emailSchema
+      ✓ should validate valid email
+      ✓ should reject invalid email
+      ✓ should reject missing email
+      ✓ should accept email with subdomain
+
+  console.error
+    Database error: Error: Database error
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/src/__tests__/middleware/auth.test.js:89:18)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as get] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at get (/Users/smitches/Documents/dev/general/backend/src/middleware/auth.js:20:6)
+        at Object.authenticateUser (/Users/smitches/Documents/dev/general/backend/src/__tests__/middleware/auth.test.js:92:7)
+        at Promise.then.completed (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/utils.js:290:26)
+        at new Promise (<anonymous>)
+        at callAsyncCircusFn (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/utils.js:231:10)
+        at _callCircusTest (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/run.js:316:40)
+        at _runTest (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/run.js:252:3)
+        at _runTestsForDescribeBlock (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/run.js:126:9)
+        at _runTestsForDescribeBlock (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/run.js:121:9)
+        at _runTestsForDescribeBlock (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/run.js:121:9)
+        at run (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/run.js:71:3)
+        at runAndTransformResultsToJestFormat (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+        at jestAdapter (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+        at runTestInternal (/Users/smitches/Documents/dev/general/backend/node_modules/jest-runner/build/runTest.js:367:16)
+        at runTest (/Users/smitches/Documents/dev/general/backend/node_modules/jest-runner/build/runTest.js:444:34)
+
+      20 |   db.get('SELECT email FROM users WHERE email = ?', [userEmail], (err, row) => {
+      21 |     if (err) {
+    > 22 |       console.error('Database error:', err);
+         |               ^
+      23 |       return res.status(500).json({ error: 'Internal server error' });
+      24 |     }
+      25 |     
+
+      at error (src/middleware/auth.js:22:15)
+      at Object.callback (src/__tests__/middleware/auth.test.js:89:9)
+      at get (src/middleware/auth.js:20:6)
+      at Object.authenticateUser (src/__tests__/middleware/auth.test.js:92:7)
+
+  console.error
+    Error creating user: Error: Insert failed
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/src/__tests__/middleware/auth.test.js:139:18)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as run] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at run (/Users/smitches/Documents/dev/general/backend/src/middleware/auth.js:28:10)
+        at Object.callback (/Users/smitches/Documents/dev/general/backend/src/__tests__/middleware/auth.test.js:135:9)
+        at /Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:397:39
+        at Object.<anonymous> (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:404:13)
+        at Object.mockConstructor [as get] (/Users/smitches/Documents/dev/general/backend/node_modules/jest-mock/build/index.js:148:19)
+        at get (/Users/smitches/Documents/dev/general/backend/src/middleware/auth.js:20:6)
+        at Object.authenticateUser (/Users/smitches/Documents/dev/general/backend/src/__tests__/middleware/auth.test.js:142:7)
+        at Promise.then.completed (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/utils.js:290:26)
+        at new Promise (<anonymous>)
+        at callAsyncCircusFn (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/utils.js:231:10)
+        at _callCircusTest (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/run.js:316:40)
+        at _runTest (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/run.js:252:3)
+        at _runTestsForDescribeBlock (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/run.js:126:9)
+        at _runTestsForDescribeBlock (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/run.js:121:9)
+        at _runTestsForDescribeBlock (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/run.js:121:9)
+        at run (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/run.js:71:3)
+        at runAndTransformResultsToJestFormat (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+        at jestAdapter (/Users/smitches/Documents/dev/general/backend/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+        at runTestInternal (/Users/smitches/Documents/dev/general/backend/node_modules/jest-runner/build/runTest.js:367:16)
+        at runTest (/Users/smitches/Documents/dev/general/backend/node_modules/jest-runner/build/runTest.js:444:34)
+
+      28 |       db.run('INSERT INTO users (email) VALUES (?)', [userEmail], (err) => {
+      29 |         if (err) {
+    > 30 |           console.error('Error creating user:', err);
+         |                   ^
+      31 |           return res.status(500).json({ error: 'Failed to create user' });
+      32 |         }
+      33 |         
+
+      at error (src/middleware/auth.js:30:19)
+      at Object.callback (src/__tests__/middleware/auth.test.js:139:9)
+      at run (src/middleware/auth.js:28:10)
+      at Object.callback (src/__tests__/middleware/auth.test.js:135:9)
+      at get (src/middleware/auth.js:20:6)
+      at Object.authenticateUser (src/__tests__/middleware/auth.test.js:142:7)
+
+PASS src/__tests__/middleware/auth.test.js
+  Authentication Middleware
+    Email Header Validation
+      ✓ should return 401 if x-user-email header is missing
+      ✓ should return 400 if email format is invalid (1 ms)
+      ✓ should accept valid email format
+    Existing User Authentication
+      ✓ should authenticate existing user and call next()
+      ✓ should handle database error when checking user (4 ms)
+    New User Creation
+      ✓ should create new user if not exists and call next()
+      ✓ should handle error when creating new user (1 ms)
+    Email Format Edge Cases
+      ✓ should reject email without @
+      ✓ should reject email without domain
+      ✓ should reject email without TLD
+      ✓ should accept email with subdomain
+
+PASS src/__tests__/middleware/errorHandler.test.js
+  Error Handler Middleware
+    Joi Validation Errors
+      ✓ should handle Joi validation error (1 ms)
+      ✓ should handle single Joi validation error
+    SQLite Errors
+      ✓ should handle SQLITE_CONSTRAINT error
+      ✓ should handle SQLITE_ERROR
+    Generic Errors
+      ✓ should handle error with custom status
+      ✓ should default to 500 status if not specified
+      ✓ should use default message if none provided
+    Console Logging
+      ✓ should log error to console (1 ms)
+
+------------------|---------|----------|---------|---------|-------------------------------------------------------------------------------------
+File              | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                                                   
+------------------|---------|----------|---------|---------|-------------------------------------------------------------------------------------
+All files         |   79.15 |    80.33 |   89.06 |   79.29 |                                                                                     
+ database         |    93.1 |     87.5 |     100 |    93.1 |                                                                                     
+  init.js         |    93.1 |     87.5 |     100 |    93.1 | 11-12                                                                               
+ middleware       |     100 |      100 |     100 |     100 |                                                                                     
+  auth.js         |     100 |      100 |     100 |     100 |                                                                                     
+  errorHandler.js |     100 |      100 |     100 |     100 |                                                                                     
+ routes           |    75.9 |    77.33 |   86.53 |   76.04 |                                                                                     
+  auth.js         |   97.05 |      100 |     100 |   97.05 | 54                                                                                  
+  clients.js      |   87.36 |    85.71 |     100 |   87.36 | 83-84,96,122-123,151-152,161-162,175,195-196                                        
+  reports.js      |   50.94 |    55.55 |   56.25 |   50.96 | 104-141,174-240                                                                     
+  workEntries.js  |   82.53 |       80 |     100 |   82.53 | 66-67,96-97,124-125,139,165-166,180-181,211-212,216-217,227-228,241-242,256,276-277 
+ validation       |     100 |      100 |     100 |     100 |                                                                                     
+  schemas.js      |     100 |      100 |     100 |     100 |                                                                                     
+------------------|---------|----------|---------|---------|-------------------------------------------------------------------------------------
+Test Suites: 1 failed, 7 passed, 8 total
+Tests:       1 failed, 133 passed, 134 total
+Snapshots:   0 total
+Time:        0.837 s, estimated 1 s
+Ran all test suites.

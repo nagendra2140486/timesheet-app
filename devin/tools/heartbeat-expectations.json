@@ -1,0 +1,48 @@
+{
+  "app": "timesheet-app",
+  "latency_budget_ms": 2000,
+  "services": {
+    "backend": {
+      "health": "/health",
+      "expect_json": {"status": "OK"}
+    }
+  },
+  "api_surface": {
+    "service": "backend",
+    "endpoints": [
+      {
+        "name": "auth endpoint validates input",
+        "method": "POST",
+        "path": "/api/auth/login",
+        "json_body": {"email": "not-an-email"},
+        "expect_status": 400,
+        "expect_json": {"error": "Validation error"}
+      },
+      {
+        "name": "GET /api/clients rejects anonymous access",
+        "path": "/api/clients",
+        "expect_status": 401,
+        "expect_json": {"error": "User email required in x-user-email header"}
+      },
+      {
+        "name": "GET /api/work-entries rejects anonymous access",
+        "path": "/api/work-entries",
+        "expect_status": 401
+      },
+      {
+        "name": "GET /api/reports rejects anonymous access",
+        "path": "/api/reports",
+        "expect_status": 401
+      }
+    ]
+  },
+  "data_baselines": [],
+  "config_checks": [],
+  "frontend": {
+    "probe_assets": true,
+    "max_assets": 20
+  },
+  "cors": {
+    "path": "/api/clients"
+  }
+}

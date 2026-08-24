@@ -1,0 +1,19 @@
+{
+  "name": "timesheet-app-tests",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "test": "playwright test",
+    "typecheck": "tsc --noEmit",
+    "inventory": "node scripts/generate-inventory.mjs",
+    "inventory:check": "node scripts/generate-inventory.mjs && git diff --exit-code spec-inventory.json",
+    "coverage:map": "TIMESHEET_COVERAGE=1 playwright test",
+    "test:headed": "playwright test --headed",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}
