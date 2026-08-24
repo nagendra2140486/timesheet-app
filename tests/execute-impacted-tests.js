@@ -7,10 +7,17 @@ const payload = JSON.parse(
 
 console.log(`Running impacted suite for ${payload.appname}`);
 
+/*
+ * Override frontend URL with the working deployed application.
+ * Ignore payload.frontend_url for now.
+ */
 process.env.TIMESHEET_BASE_URL =
-  payload.frontend_url ||
-  process.env.TIMESHEET_BASE_URL;
+  'https://timesheet-frontend-fwb9fuhnc4c8bre5.eastus-01.azurewebsites.net';
 
+/*
+ * Backend still comes from payload.
+ * Replace with actual backend URL later if needed.
+ */
 process.env.TIMESHEET_API_URL =
   payload.backend_url ||
   process.env.TIMESHEET_API_URL;
@@ -155,4 +162,4 @@ fs.writeFileSync(
   JSON.stringify(regressionReport, null, 2)
 );
 
-console.log('regression-report.json generated successfully');
+console.log('regression-report.json generated
