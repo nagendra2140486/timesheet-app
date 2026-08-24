@@ -17,10 +17,12 @@ process.env.TIMESHEET_BASE_URL =
 /*
  * Backend still comes from payload.
  * Replace with actual backend URL later if needed.
+ /*
+ * Temporary backend override.
  */
 process.env.TIMESHEET_API_URL =
-  payload.backend_url ||
-  process.env.TIMESHEET_API_URL;
+* '*ttps://timesheet-backend-fwb9fuhnc4c8bre5.eastus-01.azurewebsites.net*;
+``*
 
 console.log(`Frontend URL: ${process.env.TIMESHEET_BASE_URL}`);
 console.log(`Backend URL: ${process.env.TIMESHEET_API_URL}`);
