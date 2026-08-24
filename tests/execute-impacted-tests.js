@@ -161,5 +161,4 @@ fs.writeFileSync(
   'regression-report.json',
   JSON.stringify(regressionReport, null, 2)
 );
-
-console.log('regression-report.json generated
+console.log('regression-report.json generated successfully');
