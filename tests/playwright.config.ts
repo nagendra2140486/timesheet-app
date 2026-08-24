@@ -24,10 +24,13 @@ export default defineConfig({
       ? [['list'], ['html', { open: 'never' }]]
       : 'list',
   use: {
-    baseURL: process.env.TIMESHEET_BASE_URL || 'http://localhost:5173',
-    trace: 'retain-on-failure',
-    screenshot: 'only-on-failure',
-    video: 'off',
-  },
+  baseURL:
+    process.env.TIMESHEET_BASE_URL ||
+    'https://timesheet-frontend-fwb9fuhnc4c8bre5.eastus-01.azurewebsites.net',
+
+  trace: 'retain-on-failure',
+  screenshot: 'only-on-failure',
+  video: 'off',
+},
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
 });
