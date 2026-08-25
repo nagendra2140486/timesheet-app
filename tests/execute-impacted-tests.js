@@ -5,34 +5,38 @@ const payload = JSON.parse(
   fs.readFileSync('payload.json', 'utf8')
 );
 
-console.log(`Running impacted suite for ${payload.appname}`);
+console.log(
+  `Running impacted suite for ${payload.appname}`
+);
 
 /*
- * Override frontend URL with the working deployed application.
- * Ignore payload.frontend_url for now.
+ * Timesheet UAT deployment
  */
 process.env.TIMESHEET_BASE_URL =
-  'https://timesheet-frontend-fwb9fuhnc4c8bre5.eastus-01.azurewebsites.net';
+  'https://qea-timesheet-uat-ayfch9f0ehhwg6fp.canadacentral-01.azurewebsites.net';
 
-/*
- * Backend still comes from payload.
- * Replace with actual backend URL later if needed.
- /*
- * Temporary backend override.
- */
 process.env.TIMESHEET_API_URL =
-'https://timesheet-backend-fwb9fuhnc4c8bre5.eastus-01.azurewebsites.net';
+  'https://qea-timesheet-uat-ayfch9f0ehhwg6fp.canadacentral-01.azurewebsites.net';
 
+console.log(
+  `TIMESHEET_BASE_URL=${process.env.TIMESHEET_BASE_URL}`
+);
 
-console.log(`Frontend URL: ${process.env.TIMESHEET_BASE_URL}`);
-console.log(`Backend URL: ${process.env.TIMESHEET_API_URL}`);
+console.log(
+  `TIMESHEET_API_URL=${process.env.TIMESHEET_API_URL}`
+);
 
 const testCases = payload.test_cases || [];
 
 if (!testCases.length) {
-  throw new Error('No test_cases found in payload');
+  throw new Error(
+    'No test_cases found in payload'
+  );
 }
 
+/*
+ * Impacted specs
+ */
 const specs = [
   ...new Set(
     testCases.map(tc =>
@@ -43,11 +47,47 @@ const specs = [
   )
 ];
 
-console.log('Specs selected from payload:');
+console.log('Selected specs:');
 console.log(specs);
 
+/*
+ * Extract test title
+ *
+ * Example:
+ * authentication > login
+ * ->
+ * login
+ */
+const impactedTitles = testCases.map(tc => {
+  const parts = tc.title.split('>');
+  return parts[parts.length - 1].trim();
+});
+
+console.log('Impacted test titles:');
+console.log(impactedTitles);
+
+/*
+ * Build grep pattern
+ */
+const grepPattern = impactedTitles
+  .map(title =>
+    title.replace(
+      /[.*+?^${}()|[\]\\]/g,
+      '\\$&'
+    )
+  )
+  .join('|');
+
+console.log(
+  'Generated grep pattern:'
+);
+console.log(grepPattern);
+
+/*
+ * Execute only impacted tests
+ */
 const command =
-  `npx playwright test ${specs.join(' ')} --reporter=json > results.json`;
+  `npx playwright test ${specs.join(' ')} --grep "${grepPattern}" --reporter=json > results.json`;
 
 console.log('Executing command:');
 console.log(command);
@@ -62,11 +102,17 @@ try {
 
 } catch (err) {
 
-  console.error('Playwright execution completed with failures');
+  console.error(
+    'Playwright execution completed with failures'
+  );
+
   console.error(err.message);
 
 }
 
+/*
+ * Read results
+ */
 let results = {};
 
 try {
@@ -74,67 +120,205 @@ try {
   if (fs.existsSync('results.json')) {
 
     results = JSON.parse(
-      fs.readFileSync('results.json', 'utf8')
+      fs.readFileSync(
+        'results.json',
+        'utf8'
+      )
     );
 
   }
 
 } catch (err) {
 
-  console.error('Unable to parse results.json');
+  console.error(
+    'Unable to parse results.json'
+  );
+
   console.error(err.message);
 
 }
 
-const stats = results.stats || {
-  expected: 0,
-  unexpected: 0,
-  skipped: 0,
-  flaky: 0
-};
+const stats =
+  results.stats || {
+    expected: 0,
+    unexpected: 0,
+    skipped: 0,
+    flaky: 0
+  };
+
+const actualExecuted =
+  (stats.expected || 0) +
+  (stats.unexpected || 0) +
+  (stats.skipped || 0) +
+  (stats.flaky || 0);
+
+/*
+ * Failure collection
+ */
+const failures = [];
+
+if (Array.isArray(results.suites)) {
+
+  const walkSuites = suites => {
+
+    for (const suite of suites) {
+
+      if (suite.specs) {
+
+        for (const spec of suite.specs) {
+
+          const failed =
+            spec.tests?.some(
+              test =>
+                test.status ===
+                'unexpected'
+            );
+
+          if (failed) {
+
+            failures.push({
+              test: spec.title,
+              attribution:
+                'test_failure'
+            });
+
+          }
+
+        }
+
+      }
+
+      if (suite.suites) {
+        walkSuites(suite.suites);
+      }
+
+    }
+
+  };
+
+  walkSuites(results.suites);
+
+}
 
 const analysisJson = {
   stage: 'functional',
+
   pr_id: payload.pr_id,
+
   runner: 'playwright',
-  selection_mode: payload.selection_mode,
-  selection_reason: payload.selection_reason,
-  total_impacted: payload.total_impacted,
-  total_in_suite: payload.total_in_suite,
-  selected_specs: specs,
-  executed_tests: testCases.length,
-  stats
+
+  impacted_analysis: {
+    total_impacted:
+      payload.total_impacted ||
+      testCases.length,
+
+    suite_size:
+      payload.total_in_suite,
+
+    selection_mode:
+      payload.selection_mode,
+
+    selection_reason:
+      payload.selection_reason
+  },
+
+  deployed: {
+    target:
+      process.env.TIMESHEET_BASE_URL,
+
+    executed:
+      actualExecuted,
+
+    passed:
+      stats.expected || 0,
+
+    failed:
+      stats.unexpected || 0
+  },
+
+  executed_tests:
+    testCases.map(tc => ({
+      title: tc.title,
+      spec: tc.spec
+    })),
+
+  failures
 };
 
 const analysisMarkdown = `
-# Impacted Regression Execution
+# Functional Execution — ${payload.appname} PR #${payload.pr_id}
 
-Application: ${payload.appname}
+The Impact Gap Analyzer selected ${
+  payload.total_impacted ||
+  testCases.length
+} impacted test cases from a regression suite containing ${
+  payload.total_in_suite || 'N/A'
+} total tests.
 
-PR: ${payload.pr_id}
+## Execution Summary
 
-Selection Mode: ${payload.selection_mode}
+| Metric | Result |
+| --- | --- |
+| Impacted Tests Selected | ${
+  payload.total_impacted ||
+  testCases.length
+} |
+| Tests Executed | ${actualExecuted} |
+| Passed | ${stats.expected || 0} |
+| Failed | ${stats.unexpected || 0} |
+
+## Impact Selection
+
+Selection Mode:
+${payload.selection_mode}
 
 Selection Reason:
 ${payload.selection_reason}
 
-## Execution Summary
+## Executed Impacted Tests
 
-- Total Impacted Tests: ${payload.total_impacted}
-- Total Suite Size: ${payload.total_in_suite}
-- Executed Test Cases: ${testCases.length}
+${testCases
+  .map(tc => `- ${tc.title}`)
+  .join('\n')}
+
+${
+failures.length
+? `
+## Failures
+
+| Test | Attribution |
+| --- | --- |
+${failures
+  .map(
+    f =>
+      `| ${f.test} | ${f.attribution} |`
+  )
+  .join('\n')}
+`
+: `
+## Functional Findings
+
+All impacted test cases completed successfully.
+
+No impacted test failures were observed.
+`
+}
+
+## Conclusion
+
+Only impacted test cases identified by the Impact Gap Analyzer were executed.
+
+Execution completed with:
+
+- Executed: ${actualExecuted}
 - Passed: ${stats.expected || 0}
 - Failed: ${stats.unexpected || 0}
-- Skipped: ${stats.skipped || 0}
-- Flaky: ${stats.flaky || 0}
 
-## Impacted Specs
-
-${specs.map(spec => `- ${spec}`).join('\n')}
-
-## Impacted Tests
-
-${testCases.map(tc => `- ${tc.title}`).join('\n')}
+${
+(stats.unexpected || 0) > 0
+? 'One or more impacted tests failed and require investigation.'
+: 'No functional regressions were detected within the impacted scope.'
+}
 `;
 
 const regressionReport = {
@@ -142,17 +326,23 @@ const regressionReport = {
     payload.id ||
     `${payload.appname}_regression-report_${payload.pr_id}`,
 
-  appname: payload.appname,
+  appname:
+    payload.appname,
 
-  reporttype: 'regression-report',
+  reporttype:
+    'regression-report',
 
-  repository: payload.repository,
+  repository:
+    payload.repository,
 
-  pr_id: payload.pr_id,
+  pr_id:
+    payload.pr_id,
 
-  analysis_markdown: analysisMarkdown,
+  analysis_markdown:
+    analysisMarkdown,
 
-  analysis_json: analysisJson,
+  analysis_json:
+    analysisJson,
 
   created_at:
     payload.generated_at ||
@@ -161,6 +351,13 @@ const regressionReport = {
 
 fs.writeFileSync(
   'regression-report.json',
-  JSON.stringify(regressionReport, null, 2)
+  JSON.stringify(
+    regressionReport,
+    null,
+    2
+  )
 );
-console.log('regression-report.json generated successfully');
+
+console.log(
+  'regression-report.json generated successfully'
+);
