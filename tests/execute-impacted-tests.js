@@ -21,32 +21,6 @@ fs.mkdirSync('attachments', {
 });
 
 /*
- * Copy Playwright screenshots into attachments
- */
-try {
-
-  execSync(
-    `
-    find test-results -name "*.png" -type f | while read file
-    do
-      cp "$file" attachments/
-    done
-    `,
-    {
-      shell: true,
-      stdio: 'inherit'
-    }
-  );
-
-} catch (err) {
-
-  console.log(
-    'No screenshots found in test-results'
-  );
-
-}
-
-/*
  * Impacted specs
  */
 const specs = [
@@ -63,7 +37,7 @@ console.log('Selected specs:');
 console.log(specs);
 
 /*
- * Extract actual Playwright test titles
+ * Extract Playwright titles
  */
 const impactedTitles = testCases.map(tc => {
   const parts = tc.title.split('>');
@@ -109,6 +83,55 @@ try {
   );
 
   console.error(err.message);
+
+}
+
+/*
+ * Copy screenshots AFTER execution
+ */
+try {
+
+  execSync(
+    `
+    find test-results -name "*.png" -type f | while read file
+    do
+      cp "$file" attachments/
+    done
+    `,
+    {
+      shell: true,
+      stdio: 'inherit'
+    }
+  );
+
+} catch (err) {
+
+  console.log(
+    'No screenshots found in test-results'
+  );
+
+}
+
+/*
+ * Debug attachments
+ */
+console.log('Attachments content:');
+
+try {
+
+  execSync(
+    'find attachments -type f',
+    {
+      shell: true,
+      stdio: 'inherit'
+    }
+  );
+
+} catch {
+
+  console.log(
+    'No files present in attachments'
+  );
 
 }
 
@@ -183,16 +206,21 @@ if (Array.isArray(results.suites)) {
             });
 
           }
+
         }
+
       }
 
       if (suite.suites) {
         walkSuites(suite.suites);
       }
+
     }
+
   };
 
   walkSuites(results.suites);
+
 }
 
 /*
@@ -204,9 +232,6 @@ const analysisJson = {
   pr_id: payload.pr_id,
 
   runner: 'playwright',
-
-  attachments_artifact:
-    'attachments',
 
   impacted_analysis: {
 
@@ -252,12 +277,11 @@ const analysisMarkdown = `
 # Functional Execution — ${payload.appname} PR #${payload.pr_id}
 
 The Impact Gap Analyzer identified ${
-  payload.total_impacted ||
-  testCases.length
+payload.total_impacted || testCases.length
 }
 impacted test cases from a regression suite containing
 ${
-  payload.total_in_suite || 'N/A'
+payload.total_in_suite || 'N/A'
 }
 total automated tests.
 
@@ -266,8 +290,7 @@ total automated tests.
 | Metric | Result |
 | --- | --- |
 | Impacted Tests Selected | ${
-  payload.total_impacted ||
-  testCases.length
+payload.total_impacted || testCases.length
 } |
 | Tests Executed | ${actualExecuted} |
 | Passed | ${stats.expected || 0} |
@@ -286,8 +309,8 @@ ${payload.selection_reason}
 ## Executed Impacted Tests
 
 ${testCases
-  .map(tc => `- ${tc.title}`)
-  .join('\n')}
+.map(tc => `- ${tc.title}`)
+.join('\n')}
 
 ${
 failures.length
@@ -297,11 +320,11 @@ failures.length
 | Test | Attribution |
 | --- | --- |
 ${failures
-  .map(
-    f =>
-      `| ${f.test} | ${f.attribution} |`
-  )
-  .join('\n')}
+.map(
+f =>
+`| ${f.test} | ${f.attribution} |`
+)
+.join('\n')}
 
 The impacted failures should be reviewed to determine whether they represent application regressions, environment issues, deployment differences, or data setup problems.
 
@@ -334,18 +357,18 @@ ${
 
 <!-- prqe-verdict
 ${JSON.stringify({
-  stage: 'functional',
-  deployed: {
-    executed: actualExecuted,
-    passed: stats.expected || 0,
-    failed: stats.unexpected || 0
-  }
+stage: 'functional',
+deployed: {
+executed: actualExecuted,
+passed: stats.expected || 0,
+failed: stats.unexpected || 0
+}
 })}
 -->
 `;
 
 /*
- * Regression Report
+ * Final Report
  */
 const regressionReport = {
   id:
