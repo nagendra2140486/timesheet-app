@@ -1,5 +1,4 @@
 const fs = require('fs');
-const path = require('path');
 const { execSync } = require('child_process');
 
 const payload = JSON.parse(
@@ -22,6 +21,32 @@ fs.mkdirSync('attachments', {
 });
 
 /*
+ * Copy Playwright screenshots into attachments
+ */
+try {
+
+  execSync(
+    `
+    find test-results -name "*.png" -type f | while read file
+    do
+      cp "$file" attachments/
+    done
+    `,
+    {
+      shell: true,
+      stdio: 'inherit'
+    }
+  );
+
+} catch (err) {
+
+  console.log(
+    'No screenshots found in test-results'
+  );
+
+}
+
+/*
  * Impacted specs
  */
 const specs = [
@@ -38,7 +63,7 @@ console.log('Selected specs:');
 console.log(specs);
 
 /*
- * Extract Playwright test titles
+ * Extract actual Playwright test titles
  */
 const impactedTitles = testCases.map(tc => {
   const parts = tc.title.split('>');
@@ -61,7 +86,7 @@ console.log('Generated grep pattern:');
 console.log(grepPattern);
 
 /*
- * Execute only impacted tests
+ * Execute impacted tests only
  */
 const command =
   `npx playwright test ${specs.join(' ')} --grep "${grepPattern}" --reporter=json > results.json`;
@@ -70,20 +95,25 @@ console.log('Executing command:');
 console.log(command);
 
 try {
+
   execSync(command, {
     stdio: 'inherit',
     shell: true,
     env: process.env
   });
+
 } catch (err) {
+
   console.error(
     'Playwright execution completed with failures'
   );
+
   console.error(err.message);
+
 }
 
 /*
- * Read Playwright results
+ * Read results
  */
 let results = {};
 
@@ -125,56 +155,6 @@ const actualExecuted =
   (stats.flaky || 0);
 
 /*
- * Copy all failure screenshots
- */
-const screenshotMap = {};
-
-try {
-
-  const screenshots = execSync(
-    'find test-results -name "*.png" -type f',
-    {
-      encoding: 'utf8',
-      shell: true
-    }
-  )
-    .split('\n')
-    .filter(Boolean);
-
-  screenshots.forEach(file => {
-
-    const folder =
-      path.basename(
-        path.dirname(file)
-      );
-
-    const targetFile =
-      `${folder}.png`;
-
-    const targetPath =
-      path.join(
-        'attachments',
-        targetFile
-      );
-
-    fs.copyFileSync(
-      file,
-      targetPath
-    );
-
-    screenshotMap[folder] =
-      targetPath.replace(/\\/g, '/');
-  });
-
-} catch (err) {
-
-  console.log(
-    'No screenshots available'
-  );
-
-}
-
-/*
  * Failure collection
  */
 const failures = [];
@@ -197,23 +177,9 @@ if (Array.isArray(results.suites)) {
 
           if (failed) {
 
-            let screenshot = null;
-
-            const possible =
-              Object.values(
-                screenshotMap
-              );
-
-            if (possible.length) {
-              screenshot =
-                possible.shift();
-            }
-
             failures.push({
               test: spec.title,
-              attribution:
-                'test_failure',
-              screenshot
+              attribution: 'test_failure'
             });
 
           }
@@ -221,15 +187,12 @@ if (Array.isArray(results.suites)) {
       }
 
       if (suite.suites) {
-        walkSuites(
-          suite.suites
-        );
+        walkSuites(suite.suites);
       }
     }
   };
 
   walkSuites(results.suites);
-
 }
 
 /*
@@ -241,6 +204,9 @@ const analysisJson = {
   pr_id: payload.pr_id,
 
   runner: 'playwright',
+
+  attachments_artifact:
+    'attachments',
 
   impacted_analysis: {
 
@@ -280,17 +246,18 @@ const analysisJson = {
 };
 
 /*
- * Markdown
+ * Analysis Markdown
  */
 const analysisMarkdown = `
 # Functional Execution — ${payload.appname} PR #${payload.pr_id}
 
 The Impact Gap Analyzer identified ${
-payload.total_impacted || testCases.length
+  payload.total_impacted ||
+  testCases.length
 }
 impacted test cases from a regression suite containing
 ${
-payload.total_in_suite || 'N/A'
+  payload.total_in_suite || 'N/A'
 }
 total automated tests.
 
@@ -299,7 +266,8 @@ total automated tests.
 | Metric | Result |
 | --- | --- |
 | Impacted Tests Selected | ${
-payload.total_impacted || testCases.length
+  payload.total_impacted ||
+  testCases.length
 } |
 | Tests Executed | ${actualExecuted} |
 | Passed | ${stats.expected || 0} |
@@ -318,24 +286,26 @@ ${payload.selection_reason}
 ## Executed Impacted Tests
 
 ${testCases
-.map(tc => `- ${tc.title}`)
-.join('\n')}
+  .map(tc => `- ${tc.title}`)
+  .join('\n')}
 
 ${
 failures.length
 ? `
 ## Failures, and what each is attributable to
 
-| Test | Attribution | Screenshot |
-| --- | --- | --- |
+| Test | Attribution |
+| --- | --- |
 ${failures
-.map(
-f =>
-`| ${f.test} | ${f.attribution} | ${f.screenshot || 'N/A'} |`
-)
-.join('\n')}
+  .map(
+    f =>
+      `| ${f.test} | ${f.attribution} |`
+  )
+  .join('\n')}
 
 The impacted failures should be reviewed to determine whether they represent application regressions, environment issues, deployment differences, or data setup problems.
+
+Failure evidence has been captured and published in the Azure DevOps attachments artifact.
 `
 : `
 ## Functional Findings
@@ -364,16 +334,19 @@ ${
 
 <!-- prqe-verdict
 ${JSON.stringify({
-stage: 'functional',
-deployed: {
-executed: actualExecuted,
-passed: stats.expected || 0,
-failed: stats.unexpected || 0
-}
+  stage: 'functional',
+  deployed: {
+    executed: actualExecuted,
+    passed: stats.expected || 0,
+    failed: stats.unexpected || 0
+  }
 })}
 -->
 `;
 
+/*
+ * Regression Report
+ */
 const regressionReport = {
   id:
     payload.id ||
@@ -399,7 +372,10 @@ const regressionReport = {
 
   created_at:
     payload.generated_at ||
-    new Date().toISOString()
+    new Date().toISOString(),
+
+  _attachments:
+    'attachments/'
 };
 
 fs.writeFileSync(
