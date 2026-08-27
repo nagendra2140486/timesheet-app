@@ -1,38 +1,25 @@
 const fs = require('fs');
+const path = require('path');
 const { execSync } = require('child_process');
 
 const payload = JSON.parse(
   fs.readFileSync('payload.json', 'utf8')
 );
 
-console.log(
-  `Running impacted suite for ${payload.appname}`
-);
-
-/*
- * Timesheet UAT deployment
- */
-process.env.TIMESHEET_BASE_URL =
-  'https://qea-timesheet-uat-ayfch9f0ehhwg6fp.canadacentral-01.azurewebsites.net';
-
-process.env.TIMESHEET_API_URL =
-  'https://qea-timesheet-uat-ayfch9f0ehhwg6fp.canadacentral-01.azurewebsites.net';
-
-console.log(
-  `TIMESHEET_BASE_URL=${process.env.TIMESHEET_BASE_URL}`
-);
-
-console.log(
-  `TIMESHEET_API_URL=${process.env.TIMESHEET_API_URL}`
-);
+console.log(`Running impacted suite for ${payload.appname}`);
 
 const testCases = payload.test_cases || [];
 
 if (!testCases.length) {
-  throw new Error(
-    'No test_cases found in payload'
-  );
+  throw new Error('No test_cases found in payload');
 }
+
+/*
+ * Ensure attachments folder exists
+ */
+fs.mkdirSync('attachments', {
+  recursive: true
+});
 
 /*
  * Impacted specs
@@ -51,12 +38,7 @@ console.log('Selected specs:');
 console.log(specs);
 
 /*
- * Extract test title
- *
- * Example:
- * authentication > login
- * ->
- * login
+ * Extract Playwright test titles
  */
 const impactedTitles = testCases.map(tc => {
   const parts = tc.title.split('>');
@@ -71,16 +53,11 @@ console.log(impactedTitles);
  */
 const grepPattern = impactedTitles
   .map(title =>
-    title.replace(
-      /[.*+?^${}()|[\]\\]/g,
-      '\\$&'
-    )
+    title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
   )
   .join('|');
 
-console.log(
-  'Generated grep pattern:'
-);
+console.log('Generated grep pattern:');
 console.log(grepPattern);
 
 /*
@@ -93,25 +70,20 @@ console.log('Executing command:');
 console.log(command);
 
 try {
-
   execSync(command, {
     stdio: 'inherit',
     shell: true,
     env: process.env
   });
-
 } catch (err) {
-
   console.error(
     'Playwright execution completed with failures'
   );
-
   console.error(err.message);
-
 }
 
 /*
- * Read results
+ * Read Playwright results
  */
 let results = {};
 
@@ -153,6 +125,56 @@ const actualExecuted =
   (stats.flaky || 0);
 
 /*
+ * Copy all failure screenshots
+ */
+const screenshotMap = {};
+
+try {
+
+  const screenshots = execSync(
+    'find test-results -name "*.png" -type f',
+    {
+      encoding: 'utf8',
+      shell: true
+    }
+  )
+    .split('\n')
+    .filter(Boolean);
+
+  screenshots.forEach(file => {
+
+    const folder =
+      path.basename(
+        path.dirname(file)
+      );
+
+    const targetFile =
+      `${folder}.png`;
+
+    const targetPath =
+      path.join(
+        'attachments',
+        targetFile
+      );
+
+    fs.copyFileSync(
+      file,
+      targetPath
+    );
+
+    screenshotMap[folder] =
+      targetPath.replace(/\\/g, '/');
+  });
+
+} catch (err) {
+
+  console.log(
+    'No screenshots available'
+  );
+
+}
+
+/*
  * Failure collection
  */
 const failures = [];
@@ -170,36 +192,49 @@ if (Array.isArray(results.suites)) {
           const failed =
             spec.tests?.some(
               test =>
-                test.status ===
-                'unexpected'
+                test.status === 'unexpected'
             );
 
           if (failed) {
 
+            let screenshot = null;
+
+            const possible =
+              Object.values(
+                screenshotMap
+              );
+
+            if (possible.length) {
+              screenshot =
+                possible.shift();
+            }
+
             failures.push({
               test: spec.title,
               attribution:
-                'test_failure'
+                'test_failure',
+              screenshot
             });
 
           }
-
         }
-
       }
 
       if (suite.suites) {
-        walkSuites(suite.suites);
+        walkSuites(
+          suite.suites
+        );
       }
-
     }
-
   };
 
   walkSuites(results.suites);
 
 }
 
+/*
+ * Analysis JSON
+ */
 const analysisJson = {
   stage: 'functional',
 
@@ -208,6 +243,7 @@ const analysisJson = {
   runner: 'playwright',
 
   impacted_analysis: {
+
     total_impacted:
       payload.total_impacted ||
       testCases.length,
@@ -223,8 +259,6 @@ const analysisJson = {
   },
 
   deployed: {
-    target:
-      process.env.TIMESHEET_BASE_URL,
 
     executed:
       actualExecuted,
@@ -245,23 +279,27 @@ const analysisJson = {
   failures
 };
 
+/*
+ * Markdown
+ */
 const analysisMarkdown = `
 # Functional Execution — ${payload.appname} PR #${payload.pr_id}
 
-The Impact Gap Analyzer selected ${
-  payload.total_impacted ||
-  testCases.length
-} impacted test cases from a regression suite containing ${
-  payload.total_in_suite || 'N/A'
-} total tests.
+The Impact Gap Analyzer identified ${
+payload.total_impacted || testCases.length
+}
+impacted test cases from a regression suite containing
+${
+payload.total_in_suite || 'N/A'
+}
+total automated tests.
 
 ## Execution Summary
 
 | Metric | Result |
 | --- | --- |
 | Impacted Tests Selected | ${
-  payload.total_impacted ||
-  testCases.length
+payload.total_impacted || testCases.length
 } |
 | Tests Executed | ${actualExecuted} |
 | Passed | ${stats.expected || 0} |
@@ -270,43 +308,47 @@ The Impact Gap Analyzer selected ${
 ## Impact Selection
 
 Selection Mode:
+
 ${payload.selection_mode}
 
 Selection Reason:
+
 ${payload.selection_reason}
 
 ## Executed Impacted Tests
 
 ${testCases
-  .map(tc => `- ${tc.title}`)
-  .join('\n')}
+.map(tc => `- ${tc.title}`)
+.join('\n')}
 
 ${
 failures.length
 ? `
-## Failures
+## Failures, and what each is attributable to
 
-| Test | Attribution |
-| --- | --- |
+| Test | Attribution | Screenshot |
+| --- | --- | --- |
 ${failures
-  .map(
-    f =>
-      `| ${f.test} | ${f.attribution} |`
-  )
-  .join('\n')}
+.map(
+f =>
+`| ${f.test} | ${f.attribution} | ${f.screenshot || 'N/A'} |`
+)
+.join('\n')}
+
+The impacted failures should be reviewed to determine whether they represent application regressions, environment issues, deployment differences, or data setup problems.
 `
 : `
 ## Functional Findings
 
 All impacted test cases completed successfully.
 
-No impacted test failures were observed.
+No impacted test failures were observed during execution.
 `
 }
 
 ## Conclusion
 
-Only impacted test cases identified by the Impact Gap Analyzer were executed.
+Only impacted test cases selected by the impact analysis engine were executed.
 
 Execution completed with:
 
@@ -316,9 +358,20 @@ Execution completed with:
 
 ${
 (stats.unexpected || 0) > 0
-? 'One or more impacted tests failed and require investigation.'
+? 'One or more impacted test cases failed and require investigation.'
 : 'No functional regressions were detected within the impacted scope.'
 }
+
+<!-- prqe-verdict
+${JSON.stringify({
+stage: 'functional',
+deployed: {
+executed: actualExecuted,
+passed: stats.expected || 0,
+failed: stats.unexpected || 0
+}
+})}
+-->
 `;
 
 const regressionReport = {
