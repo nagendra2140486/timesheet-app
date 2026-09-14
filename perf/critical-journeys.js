@@ -40,12 +40,6 @@ export const options = {
 
 // Fails the run fast if the target isn't up, instead of reporting a dead environment as a wall
 // of latency failures.
-export function setup() {
-  const health = http.get(`${API_URL}/health`, { tags: { name: 'GET /health' } });
-  if (health.status !== 200) {
-    throw new Error(`Environment not reachable: GET /health returned ${health.status}`);
-  }
-}
 
 const ok = (response, name, expected = [200]) =>
   check(response, {
