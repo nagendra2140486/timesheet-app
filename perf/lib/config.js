@@ -1,10 +1,12 @@
 import { Trend } from 'k6/metrics';
 
 /**
- * Backend base URL. Named the same as the functional suite's env var (TIMESHEET_API_URL, see
- * devin/config.yaml) so the same deployed URL can be reused for both stages without translation.
+ * Backend base URL. API_URL is the generic name the shared performance pipeline sets for every
+ * app (see performance-config.json's `apiUrl`, sourced from app-config.js). TIMESHEET_API_URL is
+ * kept only as a legacy fallback for anyone still setting it by hand, and matches the functional
+ * suite's env var (see devin/config.yaml) so the same deployed URL can be reused for both stages.
  */
-export const API_URL = (__ENV.TIMESHEET_API_URL || __ENV.API_URL || 'http://localhost:3001').replace(/\/$/, '');
+export const API_URL = (__ENV.API_URL || __ENV.TIMESHEET_API_URL || 'http://localhost:3001').replace(/\/$/, '');
 
 /**
  * Auth here is a single `x-user-email` header — there's no login token or session cookie, and
