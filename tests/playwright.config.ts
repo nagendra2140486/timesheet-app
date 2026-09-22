@@ -24,7 +24,12 @@ export default defineConfig({
       ? [['list'], ['html', { open: 'never' }]]
       : 'list',
   use: {
-    baseURL: process.env.TIMESHEET_BASE_URL || 'http://localhost:5173',
+    // Only TIMESHEET_API_URL is supplied by the pipeline (via the PAT
+    // Library group) - TIMESHEET_BASE_URL is not set anywhere on purpose.
+    // This UAT deployment serves the API and the UI from one origin
+    // (TIMESHEET_API_URL already points at it), so baseURL falls back to
+    // API_URL before ever reaching the local dev default.
+    baseURL: process.env.TIMESHEET_BASE_URL || API_URL,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'off',
