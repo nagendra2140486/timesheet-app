@@ -41,10 +41,12 @@ app.use(cors({
   credentials: true
 }));
 
-// Rate limiting
+// Rate limiting. Defaults are raised from express-rate-limit's typical starting point,
+// and overridable via env, because an end-to-end suite runs from one IP and exhausts a
+// low request ceiling long before it finishes.
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  windowMs: Number(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutes
+  max: Number(process.env.RATE_LIMIT_MAX) || 1000 // limit each IP to max requests per windowMs
 });
 app.use(limiter);
 
