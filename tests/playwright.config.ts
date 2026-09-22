@@ -12,8 +12,8 @@ const recordingCoverage = process.env.TIMESHEET_COVERAGE === '1';
 
 export default defineConfig({
   testDir: './e2e',
-  timeout: 120_000,
-  expect: { timeout: 30_000 },
+  timeout: 60_000,
+  expect: { timeout: 15_000 },
   fullyParallel: !recordingCoverage,
   workers: recordingCoverage ? 1 : undefined,
   forbidOnly: !!process.env.CI,
